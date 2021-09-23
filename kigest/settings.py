@@ -54,7 +54,7 @@ ROOT_URLCONF = 'kigest.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['/home/cabox/workspace/EMS/kigest/website/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
