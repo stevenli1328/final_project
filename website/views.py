@@ -18,5 +18,5 @@ def login(request):
     return HttpResponse('Login page')
 
 def payroll(request):
-    return HttpResponse('Payroll History')
+    return HttpResponse('Payroll')
 
