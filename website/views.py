@@ -9,14 +9,14 @@ def other(request):
     return HttpResponse("Bad Page!")
 
 def tasks(request):
-    return HttpResponse("Tasks Page!")
+    return render(request, 'website/tasks.html')
 
 def time_off(request):
-    return HttpResponse('Time off')
+    return render(request, 'website/scheduling.html')
 
 def login(request):
-    return HttpResponse('Login page')
+    return render(request, 'website/login.html')
 
 def payroll(request):
-    return HttpResponse('Payroll')
+    return render(request, 'website/payroll.html')
 
