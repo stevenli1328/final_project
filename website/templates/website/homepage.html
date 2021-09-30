@@ -35,6 +35,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
     <a href="{% url 'time off' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Scheduling</a>
     <a href="{% url 'payroll' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Payroll</a>
     <a href="{% url 'profile' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Profile</a>
+    <a href="{% url 'signupuser' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Signup</a>
   </div>
 
   <!-- Navbar on small screens -->
@@ -49,7 +50,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 <!-- Header -->
 <header class="w3-container w3-red w3-center" style="padding:128px 16px">
   <h1 class="w3-margin w3-jumbo">Kigest Employee Management</h1>
-  <p class="w3-xlarge">Template by w3.css</p>
+  <p class="w3-xlarge">You've reached the {{ name }} page</p>
   <button class="w3-button w3-black w3-padding-large w3-large w3-margin-top">Get Started</button>
 </header>
 

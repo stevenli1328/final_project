@@ -9,7 +9,7 @@ from django.db import IntegrityError
 
 
 def homepage(request):
-    return render(request, 'website/homepage.html')
+    return render(request, 'website/homepage.html', {'name': 'home'})
         
 #Page to signup new users. Eventually this should be for employees.
 def signupuser(request):
@@ -43,15 +43,12 @@ def signupuser(request):
 def other(request):
     return HttpResponse("Bad Page!")
 
-def tasks(request):
-    return render(request, 'website/tasks.html')
-
 def time_off(request):
-    return render(request, 'website/scheduling.html')
+    return render(request, 'website/homepage.html', {'name': 'time_off'})
 
 def user_profile(request):
-    return render(request, 'website/profile.html')
+    return render(request, 'website/homepage.html', {'name': 'profile'})
 
 def payroll(request):
-    return render(request, 'website/payroll.html')
+    return render(request, 'website/homepage.html', {'name': 'payroll'})
 
