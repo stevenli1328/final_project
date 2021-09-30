@@ -4,5 +4,6 @@ from . import views
 
 urlpatterns = [
 	path('', views.tasks, name = 'tasks'),
-    re_path(r'.*', views.bad, name = 'bad link')
+    path('createtask/', views.createtask, name='newtask'),
+    re_path(r'.*', views.bad, name = 'bad link'),
 ]
