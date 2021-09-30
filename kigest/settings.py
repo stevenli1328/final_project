@@ -25,8 +25,8 @@ SECRET_KEY = 'django-insecure-&2i+m0!z01)phz@g*h=ud%*zp^y39&c@#@2_&gz28kfjg+^0-$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [ 'port-8000-ems-kspaseff532104.preview.codeanywhere.com' ]
-
+# Added Steven and Geo as ALLOWED_HOSTS
+ALLOWED_HOSTS = [ 'port-8000-ems-kspaseff532104.preview.codeanywhere.com', 'port-8000-ems-gwong23426835.preview.codeanywhere.com', 'port-8000-ems-sli242459068.preview.codeanywhere.com',]
 
 # Application definition
 
@@ -54,7 +54,8 @@ ROOT_URLCONF = 'kigest.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['/home/cabox/workspace/EMS/kigest/website/templates'],
+        'DIRS': ['/home/cabox/workspace/EMS/kigest/website/templates', 
+                 '/home/cabox/workspace/ems/website/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
