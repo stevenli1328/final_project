@@ -12,7 +12,7 @@ from django.db import IntegrityError
 
 
 def homepage(request):
-    return render(request, 'website/homepage.html', {'form': UserCreationForm(), 'name': 'home'})
+    return render(request, 'website/index.html', {'form': UserCreationForm(), 'name': 'home'})
         
 #Page to signup new users. Eventually this should be for employees.
 def signupuser(request):
