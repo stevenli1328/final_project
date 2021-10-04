@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tasks.apps.TasksConfig',
+    'userprofile.apps.UserprofileConfig',
 ]
 
 MIDDLEWARE = [
@@ -56,7 +57,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': ['/home/cabox/workspace/EMS/kigest/website/templates',
-                 '/home/cabox/workspace/EMS/kigest/tasks/templates'],
+                 '/home/cabox/workspace/EMS/kigest/tasks/templates',
+                 '/home/cabox/workspace/EMS/kigest/userprofile/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

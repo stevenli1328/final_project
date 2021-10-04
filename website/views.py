@@ -9,8 +9,10 @@ from django.contrib.auth import login
 from django.db import IntegrityError
 
 
+
+
 def homepage(request):
-    return render(request, 'website/homepage.html', {'name': 'home'})
+    return render(request, 'website/homepage.html', {'form': UserCreationForm(), 'name': 'home'})
         
 #Page to signup new users. Eventually this should be for employees.
 def signupuser(request):
@@ -47,8 +49,6 @@ def other(request):
 def time_off(request):
     return render(request, 'website/homepage.html', {'name': 'time_off'})
 
-def user_profile(request):
-    return render(request, 'website/homepage.html', {'name': 'profile'})
 
 def payroll(request):
     return render(request, 'website/homepage.html', {'name': 'payroll'})

@@ -6,7 +6,6 @@ urlpatterns = [
 	path('', views.homepage, name = 'homepage'),
     path('signup/', views.signupuser, name = 'signupuser'),
     path('time_off/', views.time_off, name = 'time off'),
-    path('profile/', views.user_profile, name = 'profile'),
     path('payroll/', views.payroll, name = 'payroll'),
     re_path(r'.*', views.other, name = 'bad link')
 ]
