@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.shortcuts import render
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -52,3 +53,5 @@ def user_profile(request):
 def payroll(request):
     return render(request, 'website/homepage.html', {'name': 'payroll'})
 
+#def payroll(request):
+#    return render(request, 'website/payroll.html')
