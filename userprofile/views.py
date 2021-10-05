@@ -5,11 +5,6 @@ from django.contrib.auth.forms import AuthenticationForm
 def user_profile(request):
     return render(request, 'userprofile/profile.html', {'name': 'profile'})
 
-def logout_user(request):
-    if request.method == 'POST':
-        logout(request)
-        return redirect('homepage')
-
 def login_user(request):
     if request.method == 'GET':
         return render(request, 'userprofile/login.html', {'form': AuthenticationForm()})
@@ -20,6 +15,12 @@ def login_user(request):
         else:
             login(request, user)
             return redirect('homepage')
+
+def logout_user(request):
+    if request.method == 'POST':
+        logout(request)
+        return redirect('homepage')
+
         
 def other(request):
     return HttpResponse("Bad Page!")
