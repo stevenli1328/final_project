@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 class Employee(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-
     #extra features here
     dateofbirth = models.DateField()
 
@@ -16,8 +15,3 @@ class Manager(models.Model):
 
     #extra features here
     dateofbirth = models.DateField()
-
-
-
-
-
