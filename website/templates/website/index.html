@@ -51,11 +51,11 @@
                     </div>
                     <div class="col-lg-8 align-self-baseline">
                         {% if user.is_authenticated %}
-                            <p class="text-white-75 mb-5">{% block maintitle %}Welcome User.{% endblock %}</p>
+                            <p class="text-white-75 mb-5">{% block maintitle %}Welcome {{ user.get_username}}!{% endblock %}</p>
                             {% block mainbutton %}<a class="btn btn-primary btn-xl"  href="#about">Find Out More </a>{% endblock %}                        
                         {%else%}
                             <p class="text-white-75 mb-5">Welcome. You are not logged in!</p>
-                            <a class="btn btn-primary btn-xl"  href="#about">Login</a>                      
+                            <a class="btn btn-primary btn-xl"  href="{% url 'profile:login' %}">Login</a>                      
                         {% endif %}
                     </div>
                 </div>
