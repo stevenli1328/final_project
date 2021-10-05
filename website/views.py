@@ -46,7 +46,7 @@ def signupuser(request):
 def other(request):
     return HttpResponse("Bad Page!")
 
-def time_off(request):
+def scheduling(request):
     return render(request, 'website/homepage.html', {'name': 'time_off'})
 
 

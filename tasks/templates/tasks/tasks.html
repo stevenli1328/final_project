@@ -31,8 +31,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
   <div class="w3-bar w3-red w3-card w3-left-align w3-large">
     <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
     <a href="{% url 'homepage' %}" class="w3-bar-item w3-button w3-padding-large w3-white">Dashboard</a>
-    <a href="{% url 'tasks' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Tasks</a>
-    <a href="{% url 'time off' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Scheduling</a>
+    <a href="{% url 'tasks:tasks' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Tasks</a>
+    <a href="{% url 'scheduling' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Scheduling</a>
     <a href="{% url 'payroll' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Payroll</a>
     <a href="{% url 'profile' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Profile</a>
     <a href="{% url 'signupuser' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Signup</a>
@@ -51,7 +51,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 <header class="w3-container w3-red w3-center" style="padding:128px 16px">
   <h1 class="w3-margin w3-jumbo">This is the {{name}} page.</h1>
   <p class="w3-xlarge">Arrived here from the website branch :-)</p>
-  <a href="{% url 'newtask' %}" class="w3-button w3-black w3-padding-large w3-large w3-margin-top">New Task</a>
+  <a href="{% url 'tasks:newtask' %}" class="w3-button w3-black w3-padding-large w3-large w3-margin-top">New Task</a>
 </header>
 
 <!-- First Grid -->
