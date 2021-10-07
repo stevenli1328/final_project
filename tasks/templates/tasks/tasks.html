@@ -4,7 +4,7 @@
 
 {% block maintitle %}Go ahead and create a new task object. That oughtta be fun!{% endblock %}
 
-{% block mainbutton %}<a class="btn btn-primary btn-xl" href="{% url 'tasks:newtask' %}">New Task </a>{% endblock %}
+{% block mainbutton %}<a class="btn btn-primary btn-xl" href="{% url 'tasks:newtask' %}">New Task</a>{% endblock %}
 
 {% if user.is_authenticated %}
 {% block content %}

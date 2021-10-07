@@ -1,6 +1,14 @@
 {% extends "website/index.html" %}
-{% block maintitle %}
 
-Hello
+{% block content %}
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_ul }}
+<div class="d-grid"><button class="btn btn-primary btn-xl" id="submitButton" type="submit">Submit</button></div>
+</form>
+
 
 {% endblock %}
+
+

@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
+
 
 from .forms import TaskForm
 from .models import Task
@@ -26,9 +28,20 @@ def createtask(request):
         except ValueError:
             return render(request, 'tasks/newtask.html', {'form': TaskForm(),'error': 'Input Error'})
 
+@login_required(login_url='homepage')
 def viewtask(request, task_pk):
-    task =  get_object_or_404(Task, pk=task_pk)
-    return render(request, 'tasks/viewtask.html', {'task':task})
+    task =  get_object_or_404(Task, pk=task_pk, assigner=request.user)
+    if request.method == 'GET':
+        form = TaskForm(instance=task)
+        return render(request, 'tasks/viewtask.html', {'task':task, 'form': form})
+    else:
+        try:
+            form = TaskForm(request.POST, instance=task)
+            form.save()
+            return redirect(request, 'tasks:viewtask', task_pk=task.pk)
+        except ValueError:
+            return render(request, 'tasks/viewtask.html', {'task':task, 'form': form, 'error': 'Bad information.'})
+
 
 
 
