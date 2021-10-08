@@ -14,10 +14,10 @@ def dashboard(request):
 #    return render(request, 'website/tasks.html')
 
 #def time_off(request):
- #   return render(request, 'website/scheduling.html')
+#   return render(request, 'website/scheduling.html')
 
 #def login(request):
- #   return render(request, 'website/login.html')
+#    return render(request, 'website/login.html')
 
 #def payroll(request):
 #    return render(request, 'website/payroll.html')
