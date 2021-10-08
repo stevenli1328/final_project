@@ -9,8 +9,6 @@ from django.contrib.auth import login
 from django.db import IntegrityError
 
 
-
-
 def homepage(request):
     return render(request, 'website/index.html', {'form': UserCreationForm(), 'name': 'home'})
         
@@ -52,5 +50,5 @@ def scheduling(request):
 def payroll(request):
     return render(request, 'website/homepage.html', {'name': 'payroll'})
 
-#def payroll(request):
-#    return render(request, 'website/payroll.html')
+def payroll(request):
+    return render(request, 'website/payroll.html')
