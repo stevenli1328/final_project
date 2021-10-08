@@ -49,17 +49,8 @@ def other(request):
 def scheduling(request):
     return render(request, 'website/homepage.html', {'name': 'time_off'})
 
-<<<<<<< HEAD
-#def time_off(request):
-#   return render(request, 'website/scheduling.html')
-
-#def login(request):
-#    return render(request, 'website/login.html')
-=======
-
 def payroll(request):
     return render(request, 'website/homepage.html', {'name': 'payroll'})
->>>>>>> origin
 
 #def payroll(request):
 #    return render(request, 'website/payroll.html')
