@@ -1,15 +1,3 @@
-<!--HEADS UP!!! This is a template blatenly stolen from  -->
-<!--https://www.w3schools.com/w3css/w3css_templates.asp. We must -->
-<!--give proper citation if we end up using enough of this code. But I stole it for now -->
-<!--just to get started. The style sheets are all elsewhere so stealing those is a bad idea-->
-
-<!--!!! READ ABOVE !!!-->
-
-<!--!!! READ ABOVE !!!-->
-
-<!--!!! READ ABOVE !!!-->
-
-
 <!DOCTYPE html>
 <html lang="en">
 <title>W3.CSS Template</title>
@@ -25,16 +13,16 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 .fa-anchor,.fa-coffee {font-size:200px}
 </style>
 <body>
-
 <!-- Navbar -->
 <div class="w3-top">
   <div class="w3-bar w3-red w3-card w3-left-align w3-large">
     <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
     <a href="{% url 'homepage' %}" class="w3-bar-item w3-button w3-padding-large w3-white">Dashboard</a>
-    <a href="{% url 'tasks' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Tasks</a>
-    <a href="{% url 'time off' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Scheduling</a>
+    <a href="{% url 'tasks:tasks' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Tasks</a>
+    <a href="{% url 'scheduling' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Scheduling</a>
     <a href="{% url 'payroll' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Payroll</a>
-    <a href="{% url 'login' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Profile</a>
+    <a href="{% url 'profile' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Profile</a>
+    <a href="{% url 'signupuser' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Signup</a>
   </div>
 
   <!-- Navbar on small screens -->
@@ -44,25 +32,23 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
     <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
     <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 4</a>
   </div>
-</div>
-
+</div> -->
 <!-- Header -->
 <header class="w3-container w3-red w3-center" style="padding:128px 16px">
-  <h1 class="w3-margin w3-jumbo">This is the scheduling page.</h1>
-  <p class="w3-xlarge">Template by w3.css</p>
-  <button class="w3-button w3-black w3-padding-large w3-large w3-margin-top">Get Started</button>
+  <h1 class="w3-margin w3-jumbo">This is the {{name}} page.</h1>
+  <p class="w3-xlarge">Arrived here from the website branch :-)</p>
+  <a href="{% url 'tasks:newtask' %}" class="w3-button w3-black w3-padding-large w3-large w3-margin-top">New Task</a>
 </header>
 
 <!-- First Grid -->
 <div class="w3-row-padding w3-padding-64 w3-container">
   <div class="w3-content">
     <div class="w3-twothird">
-      <h1>Lorem Ipsum</h1>
-      <h5 class="w3-padding-32">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h5>
-
-      <p class="w3-text-grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <h1>Here's your tasks:</h1>
+      <ul class="w3-text-grey">{% for task in tasks %}
+        <li>{{task.title}}</li>
+        {% endfor %}
+      </ul>
     </div>
 
     <div class="w3-third w3-center">
@@ -119,4 +105,4 @@ function myFunction() {
 </script>
 
 </body>
-</html>
+</html> 
