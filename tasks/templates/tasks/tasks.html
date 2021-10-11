@@ -4,7 +4,10 @@
 
 {% block maintitle %}Go ahead and create a new task object. That oughtta be fun!{% endblock %}
 
+{% if employee.user.is_staff %}
 {% block mainbutton %}<a class="btn btn-primary btn-xl" href="{% url 'tasks:newtask' %}">New Task</a>{% endblock %}
+{% endif %}
+
 
 {% if user.is_authenticated %}
 {% block content %}

@@ -2,18 +2,17 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 
-
+from userprofile.models import Employee
 from .forms import TaskForm
 from .models import Task
 
-
-#Can this be better designed to not have to send empty dictionaries if the user is not logged in?
 def tasks(request):
     if request.user.is_authenticated:
-        tasks = Task.objects.filter(assignee=request.user, date_completed__isnull=True)
+        current_employee = Employee.objects.get(user=request.user)
+        tasks = current_employee.task_set.all()
     else:
-        tasks = {}
-    return render(request, 'tasks/tasks.html', {'name': 'tasks', 'tasks': tasks})
+        tasks = None
+    return render(request, 'tasks/tasks.html', {'name': 'tasks', 'employee': current_employee, 'tasks': tasks})
 
 def createtask(request):
     if request.method == 'GET':
@@ -22,7 +21,7 @@ def createtask(request):
         try:
             form = TaskForm(request.POST)
             newtask = form.save(commit=False)
-            newtask.assigner = request.user
+            #newtask.assigner = request.user
             newtask.save()
             return redirect('tasks:tasks')
         except ValueError:
@@ -30,7 +29,7 @@ def createtask(request):
 
 @login_required(login_url='homepage')
 def viewtask(request, task_pk):
-    task =  get_object_or_404(Task, pk=task_pk, assigner=request.user)
+    task =  get_object_or_404(Task, pk=task_pk)
     if request.method == 'GET':
         form = TaskForm(instance=task)
         return render(request, 'tasks/viewtask.html', {'task':task, 'form': form})
@@ -41,9 +40,6 @@ def viewtask(request, task_pk):
             return redirect(request, 'tasks:viewtask', task_pk=task.pk)
         except ValueError:
             return render(request, 'tasks/viewtask.html', {'task':task, 'form': form, 'error': 'Bad information.'})
-
-
-
 
 
 def bad(request):
