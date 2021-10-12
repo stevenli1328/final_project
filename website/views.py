@@ -39,7 +39,6 @@ def signupuser(request):
             return render(request, 'website/signupuser.html', 
             {'form': UserCreationForm(),
             'error':'Passwords did not match.'})
-            
 
 def other(request):
     return HttpResponse("Bad Page!")
@@ -50,5 +49,5 @@ def scheduling(request):
 def payroll(request):
     return render(request, 'website/homepage.html', {'name': 'payroll'})
 
-def payroll(request):
-    return render(request, 'website/payroll.html')
+#def payroll(request):
+#    return render(request, 'website/payroll.html')

@@ -59,6 +59,13 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
                 'TEMPLATE_DIR',
+
+                # Geo's file path
+                '/home/cabox/workspace/ems/website/templates',
+                '/home/cabox/workspace/ems/tasks/templates',
+                '/home/cabox/workspace/ems/userprofile/templates',
+
+                # Kirk's file path
                 '/home/cabox/workspace/EMS/kigest/website/templates',
                 '/home/cabox/workspace/EMS/kigest/tasks/templates',
                 '/home/cabox/workspace/EMS/kigest/userprofile/templates'],
