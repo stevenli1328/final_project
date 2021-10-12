@@ -6,7 +6,9 @@ from userprofile.models import Employee
 from .forms import TaskForm
 from .models import Task
 
+
 def tasks(request):
+    current_employee = None
     if request.user.is_authenticated:
         current_employee = Employee.objects.get(user=request.user)
         tasks = current_employee.task_set.all()

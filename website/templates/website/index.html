@@ -35,7 +35,7 @@
                         {% if user.is_authenticated %}
                         <li class="nav-item"><a class="nav-link" href="{% url 'profile:profile' %}">Profile</a></li>
                         {%else%}
-                        <li class="nav-item"><a class="nav-link" href="{% url 'signupuser' %}">Sign Up</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Sign Up</a></li>
                         {% endif %}
                     </ul>
                 </div>
