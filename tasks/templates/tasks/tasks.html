@@ -1,15 +1,14 @@
-{% extends "website/index.html" %}
+{% extends "website/main.html" %}
+{% block content %}
+<h1>The Tasks Page</h1>
 
-{% block title %}The Tasks Page{% endblock %}
-
-{% block maintitle %}Go ahead and create a new task object. That oughtta be fun!{% endblock %}
+<h2>Go ahead and create a new task object. That oughtta be fun!</h2>
 
 {% if employee.user.is_staff %}
-{% block mainbutton %}<a class="btn btn-primary btn-xl" href="{% url 'tasks:newtask' %}">New Task</a>{% endblock %}
+<a class="btn btn-primary btn-xl" href="{% url 'tasks:newtask' %}">New Task</a>
 {% endif %}
 
 {% if user.is_authenticated %}
-{% block content %}
 <section class="page-section bg-primary" id="about">
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
@@ -28,5 +27,6 @@
                 </div>
             </div>
 </section>
-{% endblock %}
 {% endif %}
+{% endblock %}
+
