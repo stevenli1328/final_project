@@ -9,11 +9,11 @@ from .models import Task
 
 def tasks(request):
     current_employee = None
+    tasks = None
+
     if request.user.is_authenticated:
         current_employee = Employee.objects.get(user=request.user)
         tasks = current_employee.task_set.all()
-    else:
-        tasks = None
     return render(request, 'tasks/tasks.html', {'name': 'tasks', 'employee': current_employee, 'tasks': tasks})
 
 def createtask(request):

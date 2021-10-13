@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'tasks.apps.TasksConfig',
     'userprofile.apps.UserprofileConfig',
+    'schedule.apps.ScheduleConfig',
 ]
 
 MIDDLEWARE = [
