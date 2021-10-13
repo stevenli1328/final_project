@@ -22,11 +22,11 @@ def login_user(request):
 
 #Page to signup new users. Eventually this should be for employees.
 def signupuser(request):
-    #check if going to page or submitting form
+    
+    form = CreateUserForm()
+    
     if request.method == 'GET':
-        return render(request, 'userprofile/register.html', {'form': CreateUserForm()})
-    #user is trying to signup if a post is returned    
-
+        return render(request, 'userprofile/register.html', {'form': form})
     else:
         if request.POST['password1'] == request.POST['password2']:
            
@@ -49,9 +49,8 @@ def signupuser(request):
             'error':'Passwords did not match.'})
 
 def logout_user(request):
-    if request.method == 'POST':
-        logout(request)
-        return redirect('homepage')
+    logout(request)
+    return redirect('profile:login')
 
         
 def other(request):

@@ -8,7 +8,6 @@
 {% block mainbutton %}<a class="btn btn-primary btn-xl" href="{% url 'tasks:newtask' %}">New Task</a>{% endblock %}
 {% endif %}
 
-
 {% if user.is_authenticated %}
 {% block content %}
 <section class="page-section bg-primary" id="about">
