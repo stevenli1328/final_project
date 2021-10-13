@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 
 from .forms import CreateUserForm
 from django.db import IntegrityError
@@ -24,27 +24,22 @@ def login_user(request):
 def signupuser(request):
     
     form = CreateUserForm()
-    
+
     if request.method == 'GET':
         return render(request, 'userprofile/register.html', {'form': form})
     else:
-        if request.POST['password1'] == request.POST['password2']:
-           
-            #try to create new user if passwords match
-            try:
-                newuser = User.objects.create_user(request.POST['username'], password=request.POST['password1'])
-                newuser.save()
-                login(request, newuser)
-                return redirect('homepage')
-            except IntegrityError:
-                return render(request, 'userprofile/register.html', 
-                {'form': CreateUserForm(),
-                'error':'Username is already taken.'})
+       
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            #username = form.cleaned_data.get('username')
+            group = Group.objects.get(name='employees')
+            user.groups.add(group)
 
-                
+            return redirect('profile:login')    
         else:
-            #error, passwords did not match
-            return render(request, 'website/register.html', 
+            #error
+            return render(request, 'userprofile/register.html', 
             {'form': UserCreationForm(),
             'error':'Passwords did not match.'})
 

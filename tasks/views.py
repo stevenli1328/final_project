@@ -13,7 +13,7 @@ def tasks(request):
 
     if request.user.is_authenticated:
         current_employee = Employee.objects.get(user=request.user)
-        tasks = current_employee.task_set.all()
+        tasks = current_employee.assignee.all()
     return render(request, 'tasks/tasks.html', {'name': 'tasks', 'employee': current_employee, 'tasks': tasks})
 
 def createtask(request):
