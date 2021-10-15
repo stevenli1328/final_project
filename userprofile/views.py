@@ -16,6 +16,9 @@ def login_user(request):
             login(request, user)
             return redirect('homepage')
 
+#def edit_user(request):
+#   username =     
+#
 def logout_user(request):
     if request.method == 'POST':
         logout(request)
