@@ -14,7 +14,8 @@ class EmployeeModelTest(TestCase):
                 last_name = 'guy' + str(i), 
                 email='test' + str(i) + '@guy.com', 
                 password='strong_p4ssw0rd_test'),
-                dateofbirth = datetime.date(1990 + i, 2 + i, 3 + i))
+                is_active = True,
+                date_of_birth = datetime.date(1990 + i, 2 + i, 3 + i))
     
     def testUserField(self):
         for i in range(5):
@@ -26,4 +27,4 @@ class EmployeeModelTest(TestCase):
         for i in range(5):
             employee = Employee.objects.get(id=i+1)
             dob = datetime.date(1990 + i, 2 + i, 3 + i)
-            self.assertEqual(employee.dateofbirth, dob)
+            self.assertEqual(employee.date_of_birth, dob)

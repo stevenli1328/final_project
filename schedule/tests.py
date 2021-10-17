@@ -11,8 +11,7 @@ class ScheduleModelTest(TestCase):
     @classmethod
     def setUpTestData(self):
         employee1 = Employee.objects.create(
-                user=User.objects.create(username='kurt'),
-                dateofbirth=datetime.date(1988, 8, 18))
+                user=User.objects.create(username='kurt'))
 
         Schedule.objects.create(
             employee=employee1,

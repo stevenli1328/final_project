@@ -10,8 +10,7 @@ class TaskModelTest(TestCase):
     @classmethod
     def setUpTestData(self):
         assigner1 = Employee.objects.create(
-                user=User.objects.create(username='kurt'),
-                dateofbirth=datetime.date(1988, 8, 18))
+                user=User.objects.create(username='kurt'))
 
         task = Task.objects.create(
             title='do some things',
