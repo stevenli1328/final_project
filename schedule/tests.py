@@ -14,7 +14,7 @@ class ScheduleModelTest(TestCase):
                 user=User.objects.create(username='kurt'),
                 dateofbirth=datetime.date(1988, 8, 18))
 
-        schedule = Schedule.objects.create(
+        Schedule.objects.create(
             employee=employee1,
             schedule_date=datetime.date(2021, 10, 18),
             time_start=datetime.time(7,0,0),

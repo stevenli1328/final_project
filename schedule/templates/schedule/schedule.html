@@ -4,6 +4,10 @@
 
 <h2>Go ahead and create a new schedule object! That oughtta be fun!</h2>
 
+{% if employee.user.is_staff %}
+<a class="btn btn-primary btn-xl" href="{% url 'schedule:newschedule' %}">New Schedule</a>
+{% endif %}
+
 {% if user.is_authenticated %}
 <section class="page-section bg-primary" id="about">
             <div class="container px-4 px-lg-5">

@@ -15,5 +15,5 @@ class Schedule(models.Model):
     date_created = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        dateStr = self.schedule_date.strftime("%d %b %Y ")
+        dateStr = self.schedule_date.strftime("%d %b %Y")
         return dateStr
