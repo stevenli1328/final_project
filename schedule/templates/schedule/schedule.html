@@ -2,7 +2,9 @@
 {% load static %}
 {% block header %}
 <link href="{% static 'css/main.css' %}" rel='stylesheet' />
-    <script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+
     <script>
 
       document.addEventListener('DOMContentLoaded', function() {
@@ -13,11 +15,12 @@
         });
         calendar.render();
       });
-
     </script>
+
 {% endblock %}
 {% block content %}
-    <div id='calendar'></div>
+
+<div id='calendar'></div>
 
 {% if employee.user.is_staff %}
 <a class="btn btn-primary btn-xl" href="{% url 'schedule:newschedule' %}">New Schedule</a>
