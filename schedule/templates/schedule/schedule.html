@@ -6,13 +6,24 @@
 <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
 
     <script>
-
       document.addEventListener('DOMContentLoaded', function() {
+        
         var calendarEl = document.getElementById('calendar');
+
         var calendar = new FullCalendar.Calendar(calendarEl, {
+            events: [
+                {% for i in schedules %}
+                {
+                    start: '{{ i.schedule_date }}',
+                    end: '{{ i.schedule_date }}',
+
+                },
+                {% endfor %}
+            ],
           initialView: 'dayGridMonth',
           height: "auto"
         });
+
         calendar.render();
       });
     </script>

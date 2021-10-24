@@ -13,7 +13,8 @@ def schedule(request):
     if request.user.is_authenticated:
         current_employee = Employee.objects.get(user=request.user)
         schedules = current_employee.schedule_set.all()
-    return render(request, 'schedule/schedule.html', {'name': 'schedule', 
+    return render(request, 'schedule/schedule.html', 
+    {'name': 'schedule', 
     'employee': current_employee, 
     'schedules': schedules})
 
