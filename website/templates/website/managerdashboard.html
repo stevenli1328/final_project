@@ -1,0 +1,55 @@
+{%  extends 'website/main.html' %}
+
+{% block content %}
+
+<br>
+
+<div class="row">
+	<div class="col-md-5">
+		<h5>Employees</h5>
+		<hr>
+		<div class="card card-body">
+			<a class="btn btn-primary  btn-sm btn-block" href="">Create New Employee</a>
+			<table class="table table-sm">
+				<tr>
+					<th></th>
+					<th>Customer</th>
+					<th>Orders</th>
+				</tr>
+
+			</table>
+		</div>
+	</div>
+
+	<div class="col-md-7">
+		<h5>LAST 5 TASKS</h5>
+		<hr>
+		<div class="card card-body">
+			<a class="btn btn-primary btn-sm btn-block" href="">Create Task</a>
+			<table class="table table-sm table-striped">
+				<tr>
+					<th>Assigned To</th>
+					<th>Date Assigned</th>
+					<th>Status</th>
+					<th>Update</th>
+					<th>Remove</th>
+                </tr>
+                {% for task in tasks %}
+                {% if task.is_complete %}<tr class="table-success">
+                {% else %} <tr>
+                {% endif %}
+                    <td>{{ task.assignee.all.first }}</td>
+                    <td>{{ task.date_created }}</td>
+                    {% if task.is_complete %}
+                    <td>Complete</td>
+                    {% else %}
+                    <td>Incomplete</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+			</table>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

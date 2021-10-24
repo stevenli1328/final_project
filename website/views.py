@@ -8,20 +8,17 @@ from django.contrib.auth.forms import UserCreationForm
 
 from django.db import IntegrityError
 
+from tasks.models import Task
+
 
 
 
 def homepage(request):
-    return render(request, 'website/main.html', {'form': UserCreationForm(), 'name': 'home'})
+    tasks = Task.objects.all()
+    return render(request, 'website/managerdashboard.html', {'form': UserCreationForm(), 'tasks': tasks})
 
 def other(request):
     return HttpResponse("Bad Page!")
 
-def scheduling(request):
-    return render(request, 'website/main.html', {'name': 'time_off'})
-
 def payroll(request):
     return render(request, 'website/main.html', {'name': 'payroll'})
-
-#def payroll(request):
-#    return render(request, 'website/payroll.html')
