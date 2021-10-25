@@ -14,7 +14,7 @@ from tasks.models import Task
 
 
 def homepage(request):
-    tasks = Task.objects.all()
+    tasks = Task.objects.order_by('-date_created')
     return render(request, 'website/managerdashboard.html', {'form': UserCreationForm(), 'tasks': tasks})
 
 def other(request):

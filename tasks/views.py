@@ -23,9 +23,9 @@ def createtask(request):
         try:
             form = TaskForm(request.POST)
             newtask = form.save(commit=False)
-            #newtask.assigner = request.user
+            newtask.assigner = Employee.objects.get(user=request.user)
             newtask.save()
-            return redirect('tasks:tasks')
+            return redirect('homepage')
         except ValueError:
             return render(request, 'tasks/newtask.html', {'form': TaskForm(),'error': 'Input Error'})
 
