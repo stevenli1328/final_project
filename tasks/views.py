@@ -2,12 +2,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 
-
 from .forms import TaskForm
 from .models import Task
 
-
-#Can this be better designed to not have to send empty dictionaries if the user is not logged in?
+# Can this be better designed to not have to send empty dictionaries if the user is not logged in?
 def tasks(request):
     if request.user.is_authenticated:
         tasks = Task.objects.filter(assignee=request.user, date_completed__isnull=True)
@@ -41,10 +39,6 @@ def viewtask(request, task_pk):
             return redirect(request, 'tasks:viewtask', task_pk=task.pk)
         except ValueError:
             return render(request, 'tasks/viewtask.html', {'task':task, 'form': form, 'error': 'Bad information.'})
-
-
-
-
 
 def bad(request):
     return HttpResponse("Bad Page!")
