@@ -38,8 +38,9 @@ def viewtask(request, task_pk):
     else:
         try:
             form = TaskForm(request.POST, instance=task)
-            form.save()
-            return redirect(request, 'tasks:viewtask', task_pk=task.pk)
+            if form.is_valid():
+                form.save()
+                return redirect('homepage')
         except ValueError:
             return render(request, 'tasks/viewtask.html', {'task':task, 'form': form, 'error': 'Bad information.'})
 

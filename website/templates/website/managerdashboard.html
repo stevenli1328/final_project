@@ -45,7 +45,7 @@
                     {% else %}
                     <td>Incomplete</td>
                     {% endif %}
-                    <td>Update</td>
+                    <td><a class="btn btn-sm btn-primary" href="{% url 'tasks:viewtask' task.id %}">Update</a></td>
                 </tr>
                 {% endfor %}
             </table>
