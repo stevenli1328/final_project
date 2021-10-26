@@ -11,9 +11,9 @@ def schedule(request):
     current_employee = None
     schedules = None
 
-    events = [{'title': 'title',
-                'start': '2020-10-25',
-                'end': '2020-10-30'}]
+    events = [{  'title': 'title',
+                'start': '2020-10-30',
+                'end': '2020-10-31'}]
 
     if request.user.is_authenticated:
         current_employee = Employee.objects.get(user=request.user)

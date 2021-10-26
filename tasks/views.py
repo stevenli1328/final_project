@@ -11,6 +11,7 @@ from .models import Task
 def manager_check(user):
     return user.groups.filter(name='managers')
 
+@login_required(login_url='homepage')
 def tasks(request):
     current_employee = None
     tasks = None
