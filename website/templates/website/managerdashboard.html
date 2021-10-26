@@ -10,10 +10,26 @@
 			<a class="btn btn-primary  btn-sm btn-block" href="">Create New Employee</a>
 			<table class="table table-sm">
 				<tr>
-					<th></th>
-					<th>Employee</th>
-					<th>Team</th>
-				</tr>
+					<th class="text-center">Employee</th>
+					<th class="text-center">Team</th>
+                </tr>
+
+                {% for manager in managers %}
+                <tr>
+                    <td>{{ manager|capfirst }}</td>
+                    <td>Managers</td>
+                </tr>                
+                {% endfor %}
+
+                {% for user in users %}
+                <tr>
+                    <td>{{ user|capfirst }}</td>
+                    <td>Employees</td>
+                </tr>
+                {% endfor %}
+
+                
+
 
 			</table>
 		</div>
@@ -24,7 +40,6 @@
 		<hr>
 		<div class="card card-body">
 			<a class="btn btn-primary btn-sm btn-block" href="{% url 'tasks:newtask' %}">Create Task</a>
-            
             <table class="table table-sm table-striped">
 				<tr>
                     <th class="col-sm-3">Task</th>
@@ -39,8 +54,8 @@
                 {% else %} <tr>
                 {% endif %}
                     <td class="text-truncate">{{ task.title }}</td>
-                    <td>{{ task.assignee.all.first }}</td>
-                    <td>{{ task.assigner }}</td>
+                    <td>{{ task.assignee.all.first|capfirst }}</td>
+                    <td>{{ task.assigner|capfirst }}</td>
                     <td>{{ task.date_created.date }}</td>
                     {% if task.is_complete %}
                     <td>Complete</td>

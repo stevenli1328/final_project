@@ -11,5 +11,5 @@ class TaskForm(ModelForm):
         fields = ['title', 'description', 'assignee']
 
     assignee = forms.ModelMultipleChoiceField(
-    queryset=Employee.objects.all(),
-    widget=forms.CheckboxSelectMultiple)
+        queryset=Employee.objects.all(),
+        widget=forms.CheckboxSelectMultiple)

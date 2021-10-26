@@ -1,11 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.models import User, Group
 
 from userprofile.models import Employee
 from .forms import TaskForm
 from .models import Task
 
+
+def manager_check(user):
+    return user.groups.filter(name='managers')
 
 def tasks(request):
     current_employee = None
@@ -16,6 +20,7 @@ def tasks(request):
         tasks = current_employee.assignee.all()
     return render(request, 'tasks/tasks.html', {'name': 'tasks', 'employee': current_employee, 'tasks': tasks})
 
+@user_passes_test(manager_check, login_url='homepage')
 def createtask(request):
     if request.method == 'GET':
         return render(request, 'tasks/newtask.html', {'form': TaskForm()})
@@ -25,6 +30,7 @@ def createtask(request):
             newtask = form.save(commit=False)
             newtask.assigner = Employee.objects.get(user=request.user)
             newtask.save()
+            form.save_m2m()
             return redirect('homepage')
         except ValueError:
             return render(request, 'tasks/newtask.html', {'form': TaskForm(),'error': 'Input Error'})
@@ -47,5 +53,6 @@ def viewtask(request, task_pk):
 
 def bad(request):
     return HttpResponse("Bad Page!")
+
 
 # Create your views here.

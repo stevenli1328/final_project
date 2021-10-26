@@ -17,9 +17,11 @@ from tasks.models import Task
 @login_required(login_url='/profile/login/')
 def homepage(request):
     managers = Group.objects.get(name='managers').user_set.all()
+    users = Group.objects.get(name='employees').user_set.all()
+
     if request.user in managers:
         tasks = Task.objects.order_by('-date_created')
-        return render(request, 'website/managerdashboard.html', {'tasks': tasks})
+        return render(request, 'website/managerdashboard.html', {'tasks': tasks, 'managers': managers, 'users': users})
     else:
         current_employee = Employee.objects.get(user=request.user)
         tasks = current_employee.assignee.all()
