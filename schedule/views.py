@@ -10,13 +10,21 @@ from userprofile.models import Employee
 def schedule(request):
     current_employee = None
     schedules = None
+
+    events = [{'title': 'title',
+                'start': '2020-10-25',
+                'end': '2020-10-30'}]
+
     if request.user.is_authenticated:
         current_employee = Employee.objects.get(user=request.user)
         schedules = current_employee.schedule_set.all()
+
+    
     return render(request, 'schedule/schedule.html', 
     {'name': 'schedule', 
     'employee': current_employee, 
-    'schedules': schedules})
+    'schedules': schedules,
+    'events': events})
 
 def createschedule(request):
         if request.method == 'GET':

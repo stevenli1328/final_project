@@ -24,6 +24,6 @@
     </ul>
   </div>
 
-    <span class="navbar-text px-2 text-white"> Hello, {{request.user}}</span>
-    <span><a class="navbar-text px-2 text-white" href="{% url 'profile:logout' %}">Logout</a></span>
+    {% if user.is_authenticated %}<span class="navbar-text px-2 text-white"> Hello, {{request.user}}</span>
+    <span><a class="navbar-text px-2 text-white" href="{% url 'profile:logout' %}">Logout</a></span>{% endif %}
 </nav>
