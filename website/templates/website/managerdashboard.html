@@ -1,0 +1,79 @@
+{%  extends 'website/main.html' %}
+
+{% block content %}
+
+<div class="row mt-2 mx-2">
+	<div class="col-md-3">
+		<h2 class="text-center">Employees</h2>
+		<hr>
+		<div class="card card-body">
+			<a class="btn btn-primary  btn-sm btn-block" href="">Create New Employee</a>
+			<table class="table table-sm">
+				<tr>
+					<th class="text-center">Employee</th>
+					<th class="text-center">Team</th>
+                </tr>
+
+                {% for manager in managers %}
+                <tr>
+                    <td>{{ manager|capfirst }}</td>
+                    <td>Managers</td>
+                </tr>                
+                {% endfor %}
+
+                {% for user in users %}
+                <tr>
+                    <td>{{ user|capfirst }}</td>
+                    <td>Employees</td>
+                </tr>
+                {% endfor %}
+
+                
+
+
+			</table>
+		</div>
+	</div>
+
+	<div class="col-md-9">
+		<h2 class="text-center">Tasks</h2>
+		<hr>
+		<div class="card card-body">
+			<a class="btn btn-primary btn-sm btn-block" href="{% url 'tasks:newtask' %}">Create Task</a>
+            <table class="table table-sm table-striped">
+				<tr>
+                    <th class="col-sm-3">Task</th>
+                    <th class="px-1">Assigned To</th>
+                    <th class="px-1">Assigned By</th>
+					<th>Date Assigned</th>
+					<th>Status</th>
+					<th>Update</th>
+                </tr>
+                {% for task in tasks %}
+                {% if task.is_complete %}<tr class="table-success">
+                {% else %} <tr>
+                {% endif %}
+                    <td class="text-truncate">{{ task.title }}</td>
+                    <td>{{ task.assignee.all.first|capfirst }}</td>
+                    <td>{{ task.assigner|capfirst }}</td>
+                    <td>{{ task.date_created.date }}</td>
+                    {% if task.is_complete %}
+                    <td>Complete</td>
+                    {% else %}
+                    <td>Incomplete</td>
+                    {% endif %}
+                    <td><a class="btn btn-sm btn-primary" href="{% url 'tasks:viewtask' task.id %}">Update</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+
+		</div>
+	</div>
+</div>
+
+<!--Schedule preview should go down here-->
+<div class="row mt-2 mx-2">
+
+</div>
+
+{% endblock %}

@@ -16,7 +16,12 @@ class Task(models.Model):
     #Description of task. Can be empty.
     description = models.TextField(blank=True)
 
+    is_complete = models.BooleanField(default=False)
+
     #The employee object who is assigned a task. Ultimately this should be a list
     # of employee objects since each task could be assigned to one or many employees.
     # By default this should be assigned to no employees. All employees should also be an option. 
     assignee = models.ManyToManyField(Employee, related_name='assignee')
+
+    def __str__(self):
+        return self.title

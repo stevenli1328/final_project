@@ -12,18 +12,18 @@
 </style>
 
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="{% url 'homepage' %}">KIGEST</a>
+  <a class="navbar-brand" href="{% url 'homepage' %}">Kigest</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="">Dashboard</a>
-      </li>
+        <a class="nav-link" href="{% url 'homepage' %}">Dashboard</a>
+        </li>
     </ul>
   </div>
 
-    <span class="hello-msg"> Hello, {{request.user}}</span>
-    <span><a class="hello-msg" href="{% url 'profile:logout' %}">Logout</a></span>
+    {% if user.is_authenticated %}<span class="navbar-text px-2 text-white"> Hello, {{request.user|capfirst}}</span>
+    <span><a class="navbar-text px-2 text-white" href="{% url 'profile:logout' %}">Logout</a></span>{% endif %}
 </nav>
