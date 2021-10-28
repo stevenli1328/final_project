@@ -6,26 +6,33 @@ from .forms import ScheduleForm
 from userprofile.models import Employee
 
 import json
+from django.core.serializers.json import DjangoJSONEncoder
+
 
 # Create your views here.
 def schedule(request):
     current_employee = None
     schedules = None
 
-    events = [{ 'title': 'title',
-                'start': '2020-10-30',
-                'end': '2020-10-31'}]
-    json_data = json.dumps(events)
-
     if request.user.is_authenticated:
         current_employee = Employee.objects.get(user=request.user)
         schedules = current_employee.schedule_set.all()
-    
+
     return render(request, 'schedule/schedule.html', 
     {'name': 'schedule', 
     'employee': current_employee, 
-    'schedules': schedules,
-    'json_events': json_data})
+    'schedules': schedules})
+
+def eventsFeed(request):
+    current_employee = Employee.objects.get(user=request.user)
+    schedules = current_employee.schedule_set.all()
+    json_list = []
+    for schedule in schedules:
+        start = schedule.schedule_date.strftime("%Y-%m-%d")
+        json_entry = {'title': "testing",'start': start}
+        json_list.append(json_entry) 
+
+    return HttpResponse(json.dumps(json_list), content_type='application/json')
 
 def createschedule(request):
         if request.method == 'GET':

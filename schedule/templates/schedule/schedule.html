@@ -4,16 +4,14 @@
 <link href="{% static 'css/main.css' %}" rel='stylesheet' />
 <script src="{% static 'js/main.js' %}"></script>
 <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
-
     <script>
+      
+      
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
-
         var calendar = new FullCalendar.Calendar(calendarEl, {
             googleCalendarApiKey: 'AIzaSyAYhkF8K-I99n_j0RhGcfcechvyxpdggHg',
-            events: {
-                    googleCalendarId: 'c_2bodthp74v8m1fv1g4j1ocf540@group.calendar.google.com'
-            },
+            events: '/schedule/eventsFeed',
             initialView: 'dayGridMonth',
             height: "auto"
         });
