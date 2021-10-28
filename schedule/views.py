@@ -28,8 +28,10 @@ def eventsFeed(request):
     schedules = current_employee.schedule_set.all()
     json_list = []
     for schedule in schedules:
-        start = schedule.schedule_date.strftime("%Y-%m-%d")
-        json_entry = {'title': "testing",'start': start}
+        title = schedule.title
+        start = schedule.schedule_date.strftime("%Y-%m-%d") + 'T' + str(schedule.time_start)
+        end = str(schedule.time_end)
+        json_entry = {'title': title,'start': start, 'end': end}
         json_list.append(json_entry) 
 
     return HttpResponse(json.dumps(json_list), content_type='application/json')

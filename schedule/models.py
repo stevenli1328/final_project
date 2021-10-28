@@ -7,6 +7,7 @@ from datetime import datetime
 
 class Schedule(models.Model):
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100, blank=True)
     schedule_date = models.DateField()
     time_start = models.TimeField()
     time_end = models.TimeField()
