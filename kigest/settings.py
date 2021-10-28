@@ -28,7 +28,7 @@ DEBUG = True
 
 # Added Steven and Geo as ALLOWED_HOSTS
 ALLOWED_HOSTS = [ 'port-8000-ems-kspaseff532104.preview.codeanywhere.com', 'port-8000-ems-gwong23426835.preview.codeanywhere.com', 'port-8000-ems-sli242459068.preview.codeanywhere.com', 'port-8000-my-first-container-sli242459068.preview.codeanywhere.com']
-
+CSRF_TRUSTED_ORIGINS = ['https://port-8000-my-first-container-sli242459068.preview.codeanywhere.com']
 # Application definition
 
 INSTALLED_APPS = [
