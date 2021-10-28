@@ -1,6 +1,4 @@
-{% extends "website/index.html" %}
-
-<h1 style="color:white;">New Tasks Page</h1>
+<h1 style="color:white;">Payroll Page</h1>
 
 <!--return error value from key 'error' if passwords don't match-->
 <h2>{{ error }}</h2>
@@ -8,7 +6,7 @@
 <form method = "POST">
 {% csrf_token %}
 {{ form.as_p }}
-<button type="submit">New Task</button>
+<button type="submit">Submit Payroll</button>
 </form>
 
 <body>
