@@ -4,16 +4,14 @@
 <link href="{% static 'css/main.css' %}" rel='stylesheet' />
 <script src="{% static 'js/main.js' %}"></script>
 <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
-
     <script>
+      
+      
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
-
         var calendar = new FullCalendar.Calendar(calendarEl, {
             googleCalendarApiKey: 'AIzaSyAYhkF8K-I99n_j0RhGcfcechvyxpdggHg',
-            events: {
-                    googleCalendarId: 'c_2bodthp74v8m1fv1g4j1ocf540@group.calendar.google.com'
-            },
+            events: '/schedule/eventsFeed',
             initialView: 'dayGridMonth',
             height: "auto"
         });
@@ -31,23 +29,5 @@
 <a class="btn btn-primary btn-xl" href="{% url 'schedule:newschedule' %}">New Schedule</a>
 {% endif %}
 
-{% if user.is_authenticated %}
-<section class="page-section bg-primary" id="about">
-            <div class="container px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-lg-8 text-center">
-                        <h2 class="text-white mt-0">Here is your current schedule</h2>
-                        <hr class="divider divider-light" />
-                        <!--for loop through tasks-->
-                        <ul class="text-black-75 mb-4">
-                        {% for schedule in schedules %}
-                            <li>{{ schedule }}</li>
-                        {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-</section>
-{% endif %}
 {% endblock %}
 
