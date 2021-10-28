@@ -44,10 +44,8 @@ def other(request):
     return HttpResponse("Bad Page!")
 
 def scheduling(request):
-    return render(request, 'website/homepage.html', {'name': 'time_off'})
+    return render(request, 'website/scheduling.html', {'name': 'time_off'})
 
 def payroll(request):
-    return render(request, 'website/homepage.html', {'name': 'payroll'})
+    return render(request, 'website/payroll.html', {'name': 'payroll'})
 
-#def payroll(request):
-#    return render(request, 'website/payroll.html')

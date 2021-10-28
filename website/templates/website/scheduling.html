@@ -1,10 +1,10 @@
 {% extends "website/index.html" %}
 
-{% block title %}The Payroll Page{% endblock %}
+{% block title %}The Scheduling Page{% endblock %}
 
-{% block maintitle %}Please enter information for payroll{% endblock %}
+{% block maintitle %}Provide information for paid time off{% endblock %}
 
-{% block mainbutton %}<a class="btn btn-primary btn-xl" href="{% url 'tasks:newtask' %}">Submit New Payroll</a>{% endblock %}
+{% block mainbutton %}<a class="btn btn-primary btn-xl" href="{% url 'tasks:newtask' %}">Request time off</a>{% endblock %}
 
 {% if user.is_authenticated %}
 {% block content %}
@@ -12,13 +12,13 @@
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-lg-8 text-center">
-                        <h2 class="text-white mt-0">Current payroll information.</h2>
+                        <h2 class="text-white mt-0">Current paid time off information.</h2>
                         <hr class="divider divider-light" />
                         <!--for loop through payroll-->
                         <ul class="text-white-75 mb-4">
-                        {% for payroll in payroll %}
-                            <a href="{% url 'payroll:viewpayroll' payroll.id %}">
-                            <li>{{ payroll.title }}</li>
+                        {% for scheduling in scheduling %}
+                            <a href="{% url 'scheduling:viewscheduling' scheduling.id %}">
+                            <li>{{ scheduling.title }}</li>
                             </a>
                         {% endfor %}
                         </ul>
