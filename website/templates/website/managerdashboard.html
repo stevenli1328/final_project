@@ -4,39 +4,8 @@
 
 {% include 'website/taskspreview.html' %}
 
+{% include 'website/employeespreview.html %}
 
-<div class="row mt-2 mx-2">
-	<div class="col-md-5">
-		<h2 class="text-center">Employees</h2>
-		<hr>
-		<div class="card card-body">
-			<a class="btn btn-primary  btn-sm btn-block" href="">Create New Employee</a>
-			<table class="table table-sm">
-				<tr>
-					<th class="text-center">Employee</th>
-					<th class="text-center">Team</th>
-                </tr>
-
-                {% for manager in managers %}
-                <tr>
-                    <td>{{ manager|capfirst }}</td>
-                    <td class="text-center">Managers</td>
-                </tr>                
-                {% endfor %}
-
-                {% for user in users %}
-                <tr>
-                    <td>{{ user|capfirst }}</td>
-                    <td class="text-center">Employees</td>
-                </tr>
-                {% endfor %}
-
-                
-
-
-			</table>
-		</div>
-	</div>
 
 <!--Schedule preview should go down here-->
 <div class="row mt-2 mx-2">
