@@ -4,8 +4,8 @@ from . import views
 
 app_name='profile'
 urlpatterns = [
-	path('', views.user_profile, name = 'profile'),
     path('login/', views.login_user, name='login'),
     path('logout/', views.logout_user, name='logout'),
+    path('<str:username>/', views.user_profile, name='profile'),
     re_path(r'.*', views.other, name = 'bad link')
 ]

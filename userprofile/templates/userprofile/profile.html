@@ -1,12 +1,3 @@
 {% extends "website/main.html" %}
-
-{% block title %}The Profile Page{% endblock %}
-
-{% block maintitle %}The only option is currently to logout{% endblock %}
-
-{% block mainbutton %}
-<form action="{% url 'profile:logout' %}" method = 'POST'>
-    {% csrf_token %}
-    <button class="btn btn-primary btn-xl" id="submitButton" type="submit">Logout</button></div>
-</form>
-    {% endblock %}
+{% block content %}
+{{employee}}    {% endblock %}

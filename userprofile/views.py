@@ -2,12 +2,20 @@ from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User, Group
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+
+import datetime
 
 from .forms import CreateUserForm
+from userprofile.models import Employee
 from django.db import IntegrityError
 
-def user_profile(request):
-    return render(request, 'userprofile/profile.html', {'name': 'profile'})
+@login_required(login_url='homepage')
+def user_profile(request, username):
+    employee = Employee.objects.get(user=request.user)
+
+    return render(request, 'userprofile/profile.html', {'employee': employee})
 
 def login_user(request):
     if request.method == 'GET':
@@ -22,22 +30,24 @@ def login_user(request):
 
 #Page to signup new users. Eventually this should be for employees.
 def signupuser(request):
-
     if request.method == 'GET':
         return render(request, 'userprofile/register.html', {'form': CreateUserForm()})
     else:
         form = CreateUserForm(request.POST)
+
         if form.is_valid():
             user = form.save()
             group = Group.objects.get(name='employees')
+            newemployee = Employee(user=user)
+            newemployee.save()
             user.groups.add(group)
-
-            return redirect('profile:login')    
+            login(request, user)
+            return redirect('homepage')    
         else:
             #error
+            messages.error(request, 'Bad shit')
             return render(request, 'userprofile/register.html', 
-            {'form': CreateUserForm(),
-            'error':'Passwords did not match.'})
+            {'form': CreateUserForm()})
 
 def logout_user(request):
     logout(request)

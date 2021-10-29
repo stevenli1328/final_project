@@ -24,6 +24,6 @@
     </ul>
   </div>
 
-    {% if user.is_authenticated %}<span class="navbar-text px-2 text-white"> Hello, {{request.user|capfirst}}</span>
+    {% if user.is_authenticated %}<span class="navbar-text px-2 text-white"> Hello, <a class="navbar-text px-2 text-white" href="{% url 'profile:profile' request.user.username %}">{{request.user|capfirst}}</a></span>
     <span><a class="navbar-text px-2 text-white" href="{% url 'profile:logout' %}">Logout</a></span>{% endif %}
 </nav>
