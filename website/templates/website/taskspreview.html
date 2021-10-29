@@ -1,6 +1,11 @@
 	<div class="col-md-10 mt-4">
 		<h2 class="text-center">Tasks</h2>
-		<hr>
+        <hr>
+        {% if tasks is None %}
+
+        <h1 class="display-3">Looks like you're all caught up!</h1>      
+        
+        {% endif %}
 		<div class="card card-body">
 			<a class="btn btn-primary btn-sm btn-block" href="{% url 'tasks:newtask' %}">Create Task</a>
             <table class="table table-sm table-striped">
@@ -12,6 +17,11 @@
 					<th>Status</th>
 					<th>Update</th>
                 </tr>
+                {% if tasks is None %}
+
+
+
+                {% endif %}
                 {% for task in tasks %}
                 {% if task.is_complete %}<tr class="table-success">
                 {% else %} <tr>

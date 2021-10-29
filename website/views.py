@@ -18,6 +18,7 @@ from tasks.models import Task
 def homepage(request):
     managers = Group.objects.get(name='managers').user_set.all()
     users = Group.objects.get(name='employees').user_set.all()
+    
 
     if request.user in managers:
         tasks = Task.objects.order_by('-date_created')
