@@ -26,11 +26,16 @@ def homepage(request):
         current_employee = Employee.objects.get(user=request.user)
         tasks = current_employee.assignee.all()
         return render(request, 'website/employeedashboard.html', {'tasks': tasks})
+
+
 def employeeview(request):
     employees = Employee.objects.all()
     return render(request, 'website/employeeview.html',{'employees': employees})
+
+
 def other(request):
     return HttpResponse("Bad Page!")
+
 
 def payroll(request):
     return render(request, 'website/main.html', {'name': 'payroll'})

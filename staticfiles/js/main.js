@@ -1767,7 +1767,7 @@ var FullCalendar = (function (exports) {
         headerToolbar: {
             start: 'title',
             center: '',
-            end: 'today prev,next',
+            end: 'dayGridMonth today prev,next',
         },
         weekends: true,
         weekNumbers: false,

@@ -22,17 +22,13 @@ def login_user(request):
 
 #Page to signup new users. Eventually this should be for employees.
 def signupuser(request):
-    
-    form = CreateUserForm()
 
     if request.method == 'GET':
-        return render(request, 'userprofile/register.html', {'form': form})
+        return render(request, 'userprofile/register.html', {'form': CreateUserForm()})
     else:
-       
         form = CreateUserForm(request.POST)
         if form.is_valid():
             user = form.save()
-            #username = form.cleaned_data.get('username')
             group = Group.objects.get(name='employees')
             user.groups.add(group)
 
@@ -40,7 +36,7 @@ def signupuser(request):
         else:
             #error
             return render(request, 'userprofile/register.html', 
-            {'form': UserCreationForm(),
+            {'form': CreateUserForm(),
             'error':'Passwords did not match.'})
 
 def logout_user(request):

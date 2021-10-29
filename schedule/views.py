@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 
 from .forms import ScheduleForm
 from userprofile.models import Employee
@@ -9,7 +9,10 @@ import json
 from django.core.serializers.json import DjangoJSONEncoder
 
 
-# Create your views here.
+def employee_check(user):
+    return user.groups.filter(name='managers') or user.groups.filter(name='employees')
+
+@user_passes_test(employee_check, login_url='homepage')
 def schedule(request):
     current_employee = None
     schedules = None
