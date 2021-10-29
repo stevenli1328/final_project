@@ -4,7 +4,7 @@
 
 {% block maintitle %}Please enter information for payroll{% endblock %}
 
-{% block mainbutton %}<a class="btn btn-primary btn-xl" href="{% url 'tasks:newtask' %}">Submit new payroll</a>{% endblock %}
+{% block mainbutton %}<a class="btn btn-primary btn-xl" href="{% url 'payroll:newpayroll' %}">Submit new payroll</a>{% endblock %}
 
 {% if user.is_authenticated %}
 {% block content %}

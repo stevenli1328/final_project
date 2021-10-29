@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 
 from .forms import PayrollForm
-from .models import Tpayroll
+from .models import Payroll
 
 # Can this be better designed to not have to send empty dictionaries if the user is not logged in?
 def payroll(request):
@@ -20,17 +20,23 @@ def createpayroll(request):
         try:
             form = PayrollForm(request.POST)
             newpayroll = form.save(commit=False)
-            newpayroll.assigner = request.user
+            newpayroll.employee = request.user
             newpayroll.save()
             return redirect('payroll:payroll')
         except ValueError:
             return render(request, 'payroll/newpayroll.html', {'form': PayrollForm(),'error': 'Input Error'})
 
+# viewing payroll
+#def viewpayroll(request):
+#    if request.method == 'GET':
+#        return render(request, 'payroll/viewpayroll.html', {'form': PayrollForm()})
+    
+
 @login_required(login_url='homepage')
-def viewtask(request, task_pk):
-    task =  get_object_or_404(Task, pk=task_pk, assigner=request.user)
+def viewpayroll(request, payroll_pk):
+    task =  get_object_or_404(Payroll, pk=payroll_pk, employee=request.user)
     if request.method == 'GET':
-        form = TaskForm(instance=task)
+        form = PayrollForm(instance=task)
         return render(request, 'payroll/viewpayroll.html', {'payroll':payroll, 'form': form})
     else:
         try:

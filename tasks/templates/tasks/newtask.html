@@ -2,12 +2,14 @@
 
 <!--return error value from key 'error' if passwords don't match-->
 <h2>{{ error }}</h2>
+<hr class="divider divider-light" />
 
 <form method = "POST">
 {% csrf_token %}
 {{ form.as_p }}
 <button type="submit">New Task</button><br>
 <button type="previous" value="Previous Page" onClick="javascript:history.go(-1);">Go Back</button>
+
 </form>
 
 <body>

@@ -7,7 +7,6 @@ class Task(models.Model):
 
     # Date task is created. By default should be now.
     date_created = models.DateTimeField(auto_now_add=True)
-    
     date_completed = models.DateTimeField(null=True, blank=True)
 
     # Description of task. Can be empty.
