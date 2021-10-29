@@ -32,6 +32,7 @@ CSRF_TRUSTED_ORIGINS = ['https://port-8000-my-first-container-sli242459068.previ
 # Application definition
 
 INSTALLED_APPS = [
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,6 +42,8 @@ INSTALLED_APPS = [
     'tasks.apps.TasksConfig',
     'userprofile.apps.UserprofileConfig',
     'schedule.apps.ScheduleConfig',
+    'payroll.apps.PayrollConfig',
+    
 ]
 
 MIDDLEWARE = [
