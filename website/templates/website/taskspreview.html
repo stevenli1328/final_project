@@ -9,13 +9,14 @@
 		<div class="card card-body">
 			<a class="btn btn-primary btn-sm btn-block" href="{% url 'tasks:newtask' %}">Create Task</a>
             <table class="table table-sm table-striped">
+                  <caption><a class="text-reset text-decoration-none" href='{% url "tasks:tasks"%}'>View All</a></caption>
 				<tr>
-                    <th class="col-sm-3">Task</th>
+                    <th class="col-sm-4">Task</th>
                     <th class="px-1">Assigned To</th>
                     <th class="px-1">Assigned By</th>
-					<th>Date Assigned</th>
+                    <th>Date Assigned</th>
+                    <th>Due Date</th>
 					<th>Status</th>
-					<th>Update</th>
                 </tr>
                 {% if tasks is None %}
 
@@ -26,20 +27,26 @@
                 {% if task.is_complete %}<tr class="table-success">
                 {% else %} <tr>
                 {% endif %}
-                    <td class="text-truncate">{{ task.title }}</td>
+                    <td><a class="text-reset text-decoration-none" href='{% url "tasks:viewtask" task.id%}'>{{ task.title }}</a></td>
+
                     <td>{{ task.assignee.all.first|capfirst }}</td>
+
                     <td>{{ task.assigner|capfirst }}</td>
                     <td>{{ task.date_created.date }}</td>
+                    <td>Due Date</td>
+
                     {% if task.is_complete %}
                     <td>Complete</td>
                     {% else %}
                     <td>Incomplete</td>
                     {% endif %}
-                    <td><a class="btn btn-sm btn-primary" href="{% url 'tasks:viewtask' task.id %}">Update</a></td>
+
                 </tr>
                 {% endfor %}
+
             </table>
 
 		</div>
 	</div>
 </div>
+

@@ -21,7 +21,7 @@ def homepage(request):
     
 
     if request.user in managers:
-        tasks = Task.objects.order_by('-date_created')
+        tasks = Task.objects.order_by('-date_created')[:10]
         return render(request, 'website/managerdashboard.html', {'tasks': tasks, 'managers': managers, 'users': users})
     else:
         current_employee = Employee.objects.get(user=request.user)
