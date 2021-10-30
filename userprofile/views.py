@@ -45,7 +45,7 @@ def signupuser(request):
             return redirect('homepage')    
         else:
             #error
-            messages.error(request, 'Bad shit')
+            messages.error(request, 'Bad info')
             return render(request, 'userprofile/register.html', 
             {'form': CreateUserForm()})
 
