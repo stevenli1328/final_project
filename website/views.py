@@ -17,16 +17,17 @@ from tasks.models import Task
 @login_required(login_url='/profile/login/')
 def homepage(request):
     managers = Group.objects.get(name='managers').user_set.all()
-    users = Group.objects.get(name='employees').user_set.all()
-    
+    employees = Group.objects.get(name='employees').user_set.all()
 
-    if request.user in managers:
+    if request.user in managers or request.user.is_superuser:
         tasks = Task.objects.order_by('-date_created')[:10]
-        return render(request, 'website/managerdashboard.html', {'tasks': tasks, 'managers': managers, 'users': users})
-    else:
+        return render(request, 'website/managerdashboard.html', {'tasks': tasks, 'managers': managers, 'employees': employees})
+    elif request.user in employees:
         current_employee = Employee.objects.get(user=request.user)
         tasks = current_employee.assignee.all()
         return render(request, 'website/employeedashboard.html', {'tasks': tasks})
+    else:
+        return HttpResponse("Sorry, you aren't properly authenticated!")
 
 
 def employeeview(request):

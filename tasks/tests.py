@@ -16,7 +16,6 @@ class TaskModelTest(TestCase):
                 user=User.objects.create(username='kurt'))
 
         employees = []
-        tasks = []
 
         for i in range(10):
             employees.append(Employee.objects.create(
@@ -25,28 +24,17 @@ class TaskModelTest(TestCase):
 
 
         for i in range(10):
-            tasks.append(Task.objects.create(
+            task = Task.objects.create(
                 title='do thing number ' + str(i),
                 assigner=assigner1,
                 description='a bunch of descriptors here'
-            ))
+            )
 
             ass_count = random.randrange(10)
             print(ass_count)
             
             for j in range(ass_count):
-                tasks[i].assignee.add(employees[j]) 
-
-
-    
-    def test_the_task(self):
-
-        for i in range(10): 
-            task = Task.objects.get(id=i + 1)
-            employee = Employee.objects.get(id=i + 1)
-            assignees = task.assignee.all()
-            self.assertEqual(task.assigner, assignees)
-
+                task.assignee.add(employees[j]) 
 
 
         
