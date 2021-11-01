@@ -11,7 +11,7 @@ from .forms import CreateUserForm
 from userprofile.models import Employee
 from django.db import IntegrityError
 
-@login_required(login_url='homepage')
+@login_required(login_url='/profile/login/')
 def user_profile(request, username):
     employee = Employee.objects.get(user=request.user)
 
