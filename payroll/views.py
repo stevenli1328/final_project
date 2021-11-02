@@ -17,7 +17,10 @@ def payroll(request):
         except User.DoesNotExist:
             return render(request, 'payroll/payroll.html', {'employees': employees, 'error': 'Please make a valid selection.'})
         employee = Employee.objects.get(user=user)
-        payroll_id = employee.payroll_set.first().id
+        if employee.payroll_set.first() != None:
+            payroll_id = employee.payroll_set.first().id
+        else:
+            return render(request, 'payroll/payroll.html', {'employees': employees, 'error': 'Employee has no payroll data'})
         return redirect('payroll:viewpayroll', payroll_id)
     else:
         return render(request, 'payroll/payroll.html', {'employees': employees})
