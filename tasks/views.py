@@ -32,7 +32,7 @@ def createtask(request):
             newtask.assigner = Employee.objects.get(user=request.user)
             newtask.save()
             form.save_m2m()
-            return redirect('homepage')
+            return redirect('tasks:tasks')
         except ValueError:
             return render(request, 'tasks/newtask.html', {'form': TaskForm(),'error': 'Input Error'})
 
