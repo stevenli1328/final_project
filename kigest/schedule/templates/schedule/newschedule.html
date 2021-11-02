@@ -1,0 +1,17 @@
+{% extends "website/main.html" %}
+
+{% block content %}
+
+
+<h1>New Schedule Page</h1>
+
+<!--return error value from key 'error' if passwords don't match-->
+<h2>{{ error }}</h2>
+
+<form method = "POST">
+{% csrf_token %}
+{{ form.as_p }}
+<button type="submit">New Schedule</button>
+</form>
+
+{% endblock %}

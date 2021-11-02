@@ -1,0 +1,11 @@
+{% extends "website/main.html" %}
+{% block content %}
+<h1>The Tasks Page</h1>
+
+
+{% if employee.user.is_staff %}
+<a class="btn btn-primary btn-xl" href="{% url 'tasks:newtask' %}">New Task</a>
+{% endif %}
+
+{% endblock %}
+

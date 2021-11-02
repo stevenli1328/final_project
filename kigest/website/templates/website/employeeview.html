@@ -1,0 +1,9 @@
+{%  extends 'website/main.html' %}
+
+{% block content %}
+{%for employee in employees%}
+{{employee}}
+{{employee.is_active}}
+<br>
+{%endfor%}
+    {% endblock %}

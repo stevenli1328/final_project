@@ -1,0 +1,116 @@
+	<div class="col-md-10 mt-4">
+		<h2 class="text-center"><a class="text-reset text-decoration-none" href='{% url "tasks:tasks"%}'>Tasks</a></h2>
+        <hr>
+        {% if tasks is None %}
+
+        <h1 class="display-3">Looks like you're all caught up!</h1>      
+        
+        {% endif %}
+		<div class="card card-body ">
+			<a class="btn btn-primary btn-lg btn-block" href="{% url 'tasks:newtask' %}">Assign a New Task</a>
+            <table class="table table-sm table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="col-sm-4">Task</th>
+                        <th>Assigned To</th>
+                        <th>Assigned By</th>
+                        <th>Date Assigned</th>
+                        <th>Due Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                {% if tasks is None %}
+
+                <!--some display if there are no tasks-->
+
+                {% endif %}
+                <tbody>
+                    {% for task in tasks %}
+                    {% if task.is_complete %}<tr class="table-success">
+                    {% else %} <tr>
+                    {% endif %}
+                        <td><a class="text-reset text-decoration-none" href='{% url "tasks:viewtask" task.id%}'>{{ task.title }}</a></td>
+
+                        <td>{{ task.assignee.all.first|capfirst }}</td>
+
+                        <td>{{ task.assigner|capfirst }}</td>
+                        <td>{{ task.date_created.date }}</td>
+                        <td>Due Date</td>
+
+                        {% if task.is_complete %}
+                        <td>Complete</td>
+                        {% else %}
+                        <td>Incomplete</td>
+                        {% endif %}
+
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+                
+            </table>
+            <div><a class = "text-reset fw-bold" href='{% url "tasks:tasks"%}'>View All</a></div>
+        </div>
+        
+    </div>
+    
+</div>
+
+
+<!-- Not hooked up right now. Might not be ideal solution for sorting by date, etc.-->
+<script>
+    function sortTable(n) {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.getElementById("taskTable");
+        switching = true;
+        //Set the sorting direction to ascending:
+        dir = "asc"; 
+        /*Make a loop that will continue until
+        no switching has been done:*/
+        while (switching) {
+            //start by saying: no switching is done:
+            switching = false;
+            rows = table.rows;
+            /*Loop through all table rows (except the
+            first, which contains table headers):*/
+            for (i = 1; i < (rows.length - 1); i++) {
+                //start by saying there should be no switching:
+                shouldSwitch = false;
+                /*Get the two elements you want to compare,
+                one from current row and one from the next:*/
+                x = rows[i].getElementsByTagName("TD")[n];
+                y = rows[i + 1].getElementsByTagName("TD")[n];
+                /*check if the two rows should switch place,
+                based on the direction, asc or desc:*/
+                if (dir == "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                    //if so, mark as a switch and break the loop:
+                    shouldSwitch= true;
+                    break;
+                    }
+                } else if (dir == "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                    //if so, mark as a switch and break the loop:
+                    shouldSwitch = true;
+                    break;
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                /*If a switch has been marked, make the switch
+                and mark that a switch has been done:*/
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                //Each time a switch is done, increase this count by 1:
+                switchcount ++;      
+            } else {
+                /*If no switching has been done AND the direction is "asc",
+                set the direction to "desc" and run the while loop again.*/
+                if (switchcount == 0 && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+            }
+        }
+    }
+</script>

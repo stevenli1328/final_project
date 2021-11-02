@@ -1,0 +1,30 @@
+{% extends "website/main.html" %}
+{% load static %}
+{% block header %}
+    <link href="{% static 'css/main.css' %}" rel='stylesheet' />
+
+    <script>
+      
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            googleCalendarApiKey: 'AIzaSyAYhkF8K-I99n_j0RhGcfcechvyxpdggHg',
+            events: '/schedule/eventsFeed',
+            initialView: 'dayGridMonth',
+            height: "auto"
+        });
+
+        calendar.render();
+      });
+    </script>
+
+{% endblock %}
+{% block content %}
+
+<div id='calendar'></div>
+
+<a class="btn btn-primary btn-xl" href="{% url 'schedule:newschedule' %}">New Schedule</a>
+
+
+{% endblock %}
+

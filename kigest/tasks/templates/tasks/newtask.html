@@ -1,0 +1,16 @@
+{% extends "website/main.html" %}
+
+{% block content %}
+
+<!--return error value from key 'error' if passwords don't match-->
+<h2>{{ error }}</h2>
+
+<form method = "POST">
+{% csrf_token %}
+
+
+{{form.as_p}}
+<button type="submit">New Task</button>
+</form>
+
+{% endblock %}

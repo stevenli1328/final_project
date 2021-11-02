@@ -1,0 +1,35 @@
+{% extends 'website/main.html' %}
+
+{% block content %}
+
+<div class="container px-4">
+    <div class="row gx-5">
+        <div class="col">
+            <form method="POST">
+            {% csrf_token %}
+            <div class="p-3 border bg-light"><span class=pr-2>Please select the employee you'd like to see the payroll data for:</span>
+                <select class="form-select" name="employee_name" required>
+                <option>Choose...</option>
+                {% for employee in employees %}
+                    <option id="employee_name">{{employee}}</option>
+                {% endfor %}
+                </select>
+                <span class=px-2>in the range from:</span>
+                <select class="form-select" name="date_from" required>
+                <option>Choose...</option>
+                </select>
+                <span class=px-2>to:</span>
+                <select class="form-select" name="date_to" required>
+                <option>Choose...</option>
+                </select>
+            </div>
+                <div class="mb-3">
+                    <button class="btn btn-primary" type="submit">Get Paystub</button>
+                    <span>{{error}}</span>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
