@@ -11,14 +11,14 @@ def payroll(request):
     employees = Employee.objects.all()
 
     if request.method=='POST':
+        employee_name = request.POST.get('employee_name')
         try:
-            employee_name = request.POST.get('employee_name')
             user = User.objects.get(username=employee_name)
-            employee = Employee.objects.get(user=user)
-            payroll_id = employee.payroll_set.first().id
-            return redirect('payroll:viewpayroll', payroll_id)
-        except ValueError:
-            return render(request, 'payroll/payroll.html', {'employees': employees, 'error': 'Please make a valid selection.'}) 
+        except User.DoesNotExist:
+            return render(request, 'payroll/payroll.html', {'employees': employees, 'error': 'Please make a valid selection.'})
+        employee = Employee.objects.get(user=user)
+        payroll_id = employee.payroll_set.first().id
+        return redirect('payroll:viewpayroll', payroll_id)
     else:
         return render(request, 'payroll/payroll.html', {'employees': employees})
 
