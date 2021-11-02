@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.timezone import make_aware
+
+import datetime
 
 from userprofile.models import Employee
 
@@ -10,6 +13,8 @@ class Task(models.Model):
 
     #Date task is created. By default should be now.
     date_created = models.DateTimeField(auto_now_add=True)
+
+    date_due = models.DateTimeField(default=make_aware(datetime.datetime(2021,11,30,5,0,0)))
     
     date_completed = models.DateTimeField(null=True, blank=True)
 
