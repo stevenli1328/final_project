@@ -2,6 +2,25 @@
 
 {% block content %}
 
-hello
+<div class="container px-4">
+    <div class="row gx-5">
+        <div class="col">
+            <form method="POST">
+            {% csrf_token %}
+            <div class="p-3 border bg-light"><span class=pr-2>Please select the employee you'd like to see the payroll data for:</span>
+                <select class="form-select" id="validationDefault04" required>
+                <option selected disabled value="">Choose...</option>
+                {% for employee in employees %}
+                                    <option>{{employee}}</option>
+                {% endfor %}
+                </select>
+            </div>
+                <div class="mb-3">
+                    <button class="btn btn-primary" type="submit">Submit form</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

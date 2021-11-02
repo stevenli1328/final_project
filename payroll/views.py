@@ -1,19 +1,26 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
+from userprofile.models import Employee
+from .models import Payroll
 
 
 def payroll(request):
-    #create new payroll form (for now just a list of employees)
+    employees = Employee.objects.all()
+
     if request.method=='POST':
-        pass
-        #take given data from form
+        print(request.POST.get)
         #grab list of payroll objects associated with given employee
         #redirect to view page to see list of these objects
+        return redirect('payroll:viewpayroll', payroll_id=1)
     else:
-        pass
-        #send form to template
-    return render(request, 'payroll/payroll.html')
+        return render(request, 'payroll/payroll.html', {'employees': employees})
+
+def viewpayroll(request, payroll_id):
+    paystub = Payroll.objects.get(payroll_id)
+
+    return render(request, 'payroll/payrolldetail.html', {'paystub':paystub})
+
 
 def other(request):
     return HttpResponse("Bad Page!")
