@@ -23,6 +23,7 @@ urlpatterns = [
     path('tasks/', include('tasks.urls')),
     path('profile/', include('userprofile.urls')),
     path('schedule/', include('schedule.urls')),
+    path('payroll/', include('payroll.urls')),
     path('signup/', views.signupuser, name='register'),
     path('', include('website.urls')),
 ]
