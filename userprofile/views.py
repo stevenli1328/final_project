@@ -20,11 +20,11 @@ def user_profile(request, username):
 
 def login_user(request):
     if request.method == 'GET':
-        return render(request, 'userprofile/login.html', {'form': AuthenticationForm()})
+        return render(request, 'userprofile/newlogin.html')
     else:
-        user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
+        user = authenticate(request, username=request.POST.get("username"), password=request.POST.get("password"))
         if user is None:
-            return render(request, 'userprofile/login.html', {'form': AuthenticationForm(), 'error': 'Username and password did not match.'})
+            return render(request, 'userprofile/newlogin.html', {'form': AuthenticationForm(), 'error': 'Username and password did not match.'})
         else:
             login(request, user)
             return redirect('homepage')
