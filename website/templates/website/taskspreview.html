@@ -1,12 +1,11 @@
 	<div class="col-md-10 mt-4">
-		<h2 class="text-center"><a class="text-reset text-decoration-none" href='{% url "tasks:tasks"%}'>Tasks</a></h2>
         <hr>
         {% if tasks is None %}
 
         <h1 class="display-3">Looks like you're all caught up!</h1>      
         
         {% endif %}
-		<div class="card card-body ">
+		<div class="card card-body "><h2 class="text-center"><a class="text-reset text-decoration-none" href='{% url "tasks:tasks"%}'>Company Tasks</a></h2>
 			<a class="btn btn-primary btn-lg btn-block" href="{% url 'tasks:newtask' %}">Assign a New Task</a>
             <table class="table table-sm table-hover">
                 <thead class="table-dark">
