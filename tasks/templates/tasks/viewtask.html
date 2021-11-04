@@ -2,6 +2,14 @@
 
 {% block content %}
 
+<style>
+    body {
+        text-align: center;
+    }
+
+</style>
+
+
 <form method="POST">
     {% csrf_token %}
     {{ form.as_ul }}

@@ -2,29 +2,51 @@
 
 {% block content %}
 
+<style>
+    body {
+        text-align: center;
+        position: center;
+    }
+    div.p-3 {
+        font-size: 22px;
+    }
+    div.px-2 {
+        font-size: 22px;
+    }
+    .form-select {
+        text-align: center;
+        font-size: 16px;
+        width: 12%;
+    }
+</style>
+
 <div class="container px-4">
     <div class="row gx-5">
         <div class="col">
             <form method="POST">
             {% csrf_token %}
-            <div class="p-3 border bg-light"><span class=pr-2>Please select the employee you'd like to see the payroll data for:</span>
+            <div class="p-3 border bg-light"><div class=pr-2>Employee to view payroll data: </div>
                 <select class="form-select" name="employee_name" required>
-                <option>Choose...</option>
+                <option>Select...</option>
+                <br>
                 {% for employee in employees %}
                     <option id="employee_name">{{employee}}</option>
                 {% endfor %}
                 </select>
-                <span class=px-2>in the range from:</span>
+                <div class=px-2>In the range from:</div>
                 <select class="form-select" name="date_from" required>
-                <option>Choose...</option>
+                <option>Select...</option>
                 </select>
-                <span class=px-2>to:</span>
+                <br>
+                <div class=px-2>To the range of:</div>
                 <select class="form-select" name="date_to" required>
-                <option>Choose...</option>
+                <option>Select...</option>
                 </select>
             </div>
                 <div class="mb-3">
+                    <br>
                     <button class="btn btn-primary" type="submit">Get Paystub</button>
+                    <br><br>
                     <span>{{error}}</span>
                 </form>
             </div>

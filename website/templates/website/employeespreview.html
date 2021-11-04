@@ -1,11 +1,20 @@
+<style>
+    body {
+        text-align: center;
+        position: center;
+    }
+</style>
+
 <div class="row mt-2 mx-2">
 	<div class="col-md-5">
         <!--Add link to employee view page-->
+
 		<h2 class="text-center">Employees</h2>
 		<hr>
 		<div class="card card-body">
 			<a class="btn btn-primary  btn-sm btn-block" href="">Create New Employee</a>
 			<table class="table table-sm" id="employeeTable">
+
 				<tr>
 					<th class="text-center" onclick="sortTable(0)">Employee</th>
 					<th class="text-center" onclick="sortTable(1)">Team</th>
@@ -24,10 +33,10 @@
                     <td class="text-center">Employees</td>
                 </tr>
                 {% endfor %}
-
-			</table>
-		</div>
+            </table>
+        </div>
     </div>
+
     
 <script>
     function sortTable(n) {
