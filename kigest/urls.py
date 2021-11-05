@@ -27,7 +27,6 @@ urlpatterns = [
     path('payroll/', include('payroll.urls')),
     path('signup/', views.signupuser, name='register'),
     path('', include('website.urls')),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

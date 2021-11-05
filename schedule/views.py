@@ -61,4 +61,4 @@ def createschedule(request):
 
 
 def bad(request):
-    return HttpResponse("Bad Page!")
+    return HttpResponse("Bad Page! Schedule")

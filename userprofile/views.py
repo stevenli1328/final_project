@@ -23,7 +23,7 @@ def user_profile(request, username):
     if request.method=='GET':
         return render(request, 'userprofile/profile.html', context)
     else:
-        form=EmployeeProfileForm(request.POST, instance=employee)
+        form=EmployeeProfileForm(request.POST, request.FILES, instance=employee)
         context['form'] = form
 
         if form.is_valid:
@@ -72,4 +72,4 @@ def logout_user(request):
 
         
 def other(request):
-    return HttpResponse("Bad Page!")
+    return HttpResponse("Bad Page! Userprofile")

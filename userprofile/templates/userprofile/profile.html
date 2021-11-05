@@ -1,4 +1,5 @@
 {% extends "website/main.html" %}
+{% load static %}
 {% block content %}
 <div class="header">
 
@@ -6,7 +7,7 @@
 <div class="row">
 	<div class="col-md-3">
 		<div class="card card-body">
-              <img src="{{employee.profile_picture.url}}" alt="John" style="width:100%">
+              <img src="{{ employee.profile_picture.url }}" alt="Profile Picture" style="width:50%">
                 <h1>{{name|capfirst}}</h1>
                 <p class="title">Team</p>
                 <p>City College of San Francisco</p>
@@ -21,7 +22,7 @@
 
 <div class="col-md-7">
 	<div class="card card-body">
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
         {{form.as_p}}
         <input class="btn btn-primary" type="submit" name="Update Information">

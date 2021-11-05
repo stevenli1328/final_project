@@ -14,6 +14,6 @@ class CreateUserForm(UserCreationForm):
 class EmployeeProfileForm(ModelForm):
     class Meta:
         model = Employee
-        fields = ['first_name', 'last_name', 'date_of_birth', 'street','city', 'state', 'phone']
+        fields = ['first_name', 'last_name', 'date_of_birth', 'street','city', 'state', 'phone', 'profile_picture']
     
     date_of_birth = forms.DateField(widget=SelectDateWidget(years=range(1930,2010)))

@@ -53,7 +53,7 @@ def viewtask(request, task_pk):
 
 
 def bad(request):
-    return HttpResponse("Bad Page!")
+    return HttpResponse("Bad Page! Tasks")
 
 
 # Create your views here.

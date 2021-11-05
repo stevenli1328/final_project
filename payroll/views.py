@@ -31,4 +31,4 @@ def viewpayroll(request, payroll_id):
 
 
 def other(request):
-    return HttpResponse("Bad Page!")
+    return HttpResponse("Bad Page! Payroll")
