@@ -17,7 +17,8 @@ def user_profile(request, username):
     form = EmployeeProfileForm(instance=employee)
     context = {'form': form, 
     'error': '', 
-    'name': employee.first_name + " " + employee.last_name}
+    'name': employee.first_name + " " + employee.last_name,
+    'employee': employee}
 
     if request.method=='GET':
         return render(request, 'userprofile/profile.html', context)
