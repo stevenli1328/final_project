@@ -1,13 +1,35 @@
 {% extends "website/main.html" %}
 {% block content %}
+<div class="header">
 
-<style>
-    body{
-        text-align: center;
-    }
-</style>
+</div>
+<div class="row">
+	<div class="col-md-3">
+		<div class="card card-body">
+              <img src="{{employee.profile_picture.url}}" alt="John" style="width:100%">
+                <h1>{{name|capfirst}}</h1>
+                <p class="title">Team</p>
+                <p>City College of San Francisco</p>
+                <a href="#"><i class="fa fa-dribbble"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-linkedin"></i></a>
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <p><button>Contact</button></p>
+        </div>
+    </div>
 
-<br><br>
-{{ form }}
+
+<div class="col-md-7">
+	<div class="card card-body">
+        <form method="POST">
+            {% csrf_token %}
+        {{form.as_p}}
+        <input class="btn btn-primary" type="submit" name="Update Information">
+        </form>
+        {{ error }}
+    </div>
+</div>
+</div>
+
 
 {% endblock %}
