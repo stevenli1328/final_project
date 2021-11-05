@@ -44,7 +44,6 @@ def eventsFeed(request):
         json_entry = {'title': title, 'start': start, 'allDay': True}
         json_list.append(json_entry)
         
-
     return HttpResponse(json.dumps(json_list), content_type='application/json')
 
 def createschedule(request):
