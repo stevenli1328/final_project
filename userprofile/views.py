@@ -15,10 +15,14 @@ from django.db import IntegrityError
 def user_profile(request, username):
     employee = Employee.objects.get(user=request.user)
     form = EmployeeProfileForm(instance=employee)
+    group = Group.objects.get(user=request.user)
+
     context = {'form': form, 
     'error': '', 
     'name': employee.first_name + " " + employee.last_name,
-    'employee': employee}
+    'employee': employee,
+    'group': group}
+    
 
     if request.method=='GET':
         return render(request, 'userprofile/profile.html', context)
@@ -69,6 +73,30 @@ def signupuser(request):
 def logout_user(request):
     logout(request)
     return redirect('profile:login')
+
+def editprofileinformation(request, username):
+    employee = Employee.objects.get(user=request.user)
+    form = EmployeeProfileForm(instance=employee)
+    
+    context = {'form': form, 
+        'error': '', 
+        'employee': employee}
+
+
+    if request.method=='GET':
+        return render(request, 'userprofile/editprofile.html', context)
+    else:
+        form=EmployeeProfileForm(request.POST, request.FILES, instance=employee)
+        context['form'] = form
+
+        if form.is_valid:
+            employee=form.save()
+            return redirect('profile:profile', username=request.user.username)
+        else:
+            context['error'] = 'Some fields are invalid. Please try again.'
+            return render(request, 'userprofile/editprofile.html', context)
+
+
 
         
 def other(request):

@@ -14,11 +14,12 @@
 <div class="row mt-2 mx-2">
 	<div class="col-md-5">
         <!--Add link to employee view page-->
-
-		<h2 class="text-center">Employees</h2>
-		<hr>
 		<div class="card card-body"><h2 class="text-center"><a class="text-reset text-decoration-none" href='{% url "employeeview"%}'>Employees</a></h2>
-			<a class="btn btn-primary  btn-sm btn-block" href="">Create New Employee</a>
+            <div class="btn-group gap-1">
+            <a class="btn btn-success btn-sm" href="">Create New Employee</a>
+            <a class="btn btn-success btn-sm" href="">Create New Team</a>
+            </div>
+
 			<table class="table table-sm" id="employeeTable">
 
 				<tr>
