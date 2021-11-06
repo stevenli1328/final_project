@@ -16,4 +16,8 @@ class EmployeeProfileForm(ModelForm):
         model = Employee
         fields = ['first_name', 'last_name', 'date_of_birth', 'street','city', 'state', 'phone', 'profile_picture']
     
-    date_of_birth = forms.DateField(widget=SelectDateWidget(years=range(1930,2010)))
+    widgets = {
+        'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+        'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+        'date_of_birth': forms.DateField(widget=SelectDateWidget(years=range(1930,2010)))
+    }
