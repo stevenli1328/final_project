@@ -1,13 +1,37 @@
 {% extends "website/main.html" %}
 {% block content %}
+<div class="header">
 
-<style>
-    body{
-        text-align: center;
-    }
-</style>
+</div>
+<div class="row px-3 ">
+	<div class="col-md-3">
+		<div class="card card-body">
+              <img src="{{ employee.profile_picture.url }}" alt="Profile Picture" class="img-thumbnail">
+                <h1>{{name|capfirst}}</h1>
+                <h4>City College of San Francisco</h4>
+                <p class="title fst-italic">Team: {{group|capfirst}}</hp>
+                <a href="#"><i class="fa fa-dribbble"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-linkedin"></i></a>
+                <a href="#"><i class="fa fa-facebook"></i></a>
+        </div>
+    </div>
 
-<br><br>
-{{ form }}
+
+<div class="col-md-8">
+	<div class="card card-body">
+        <ul class="list-group">
+            <li class="list-group-item">First name: {{employee.first_name }}</li>
+            <li class="list-group-item">Last name: {{employee.last_name}}</li>
+            <li class="list-group-item">Address: {{employee.street}} {{employee.city}}, {{employee.state}}</li>
+            <li class="list-group-item">Phone: {{employee.phone}}</li>
+            <li class="list-group-item"></li>
+        </ul>
+        <a class="btn btn-success" href="{% url 'profile:editprofile' request.user.username %}" name="Edit Profile Information">Edit Profile Information</a>       
+    </div>
+</div>
+
+</div>
+
 
 {% endblock %}

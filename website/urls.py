@@ -6,5 +6,5 @@ from . import views
 urlpatterns = [
 	path('', views.homepage, name = 'homepage'),
     path('employeeview', views.employeeview, name = 'employeeview'),
-    re_path(r'.*', views.other, name = 'bad link')
+    #re_path(r'.*', views.other, name = 'bad link')
 ]

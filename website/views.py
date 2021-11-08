@@ -36,4 +36,4 @@ def employeeview(request):
 
 
 def other(request):
-    return HttpResponse("Bad Page!")
+    return HttpResponse("Bad Page! Website")
