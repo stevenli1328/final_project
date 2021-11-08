@@ -1,9 +1,15 @@
 {% extends "website/main.html" %}
 
 {% block content %}
+
 <head>
     <style>
-        body { 
+        body {
+            text-align: center;
+            font-size: 20px;
+            display: block;
+        }
+        .form-style {
             text-align: center;
             font-size: 20px;
         }
@@ -18,22 +24,24 @@
             display: inline-block;
             margin: 2px 2px;
         }
-
+        label, input {
+            display: block;
+        }
     </style>
 </head>
-
-<br><br>
-<p>Create Task Form</p>
+<br>
 
 <!--return error value from key 'error' if passwords don't match-->
 <h2>{{ error }}</h2>
 
-<form method = "POST">
-{% csrf_token %}
-
-
-{{form.as_p}}
-<button type="submit">New Task</button>
-</form>
+<div class="form-style">
+    <div class="form-group">
+        <form method = "POST">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit">New Task</button>
+        </form>
+    </div>
+</div>
 
 {% endblock %}

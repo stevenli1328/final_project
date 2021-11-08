@@ -1995,6 +1995,7 @@ textarea.form-control {
 }
 
 .form-group {
+    background-color: red;
   margin-bottom: 1rem;
 }
 

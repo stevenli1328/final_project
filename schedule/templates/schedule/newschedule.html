@@ -5,7 +5,9 @@
 <style>
     body {
         text-align: center;
-        list-style-type: none;
+    }
+    div {
+        display: block;
     }
     button {
         text-align: center;
@@ -21,15 +23,18 @@
 </style>
 
 <br><br>
-<h1>New Schedule Page</h1>
+<h1>Create New Schedule</h1>
+<hr size="2" width="38%" color="black">
 <br>
 <!--return error value from key 'error' if passwords don't match-->
 <h2>{{ error }}</h2>
 
-<form method = "POST">
-{% csrf_token %}
-{{ form.as_p }}
-<button type="submit">New Schedule</button>
-</form>
+<div class="form-style">
+    <form method = "POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">New Schedule</button>
+    </form>
+</div>
 
 {% endblock %}
