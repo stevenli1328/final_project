@@ -10,8 +10,8 @@ class TaskForm(ModelForm):
         model = Task
         fields = ('title', 'description', 'assignee')
 
-#    assignee = forms.ModelMultipleChoiceField(
-#        queryset=Employee.objects.all(),
+    assignee = forms.ModelMultipleChoiceField(
+        queryset=Employee.objects.all())
 #        widget=forms.CheckboxSelectMultiple)
 
     widgets = {

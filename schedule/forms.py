@@ -8,7 +8,7 @@ class ScheduleForm(ModelForm):
         model = Schedule
         fields = ['title', 'employee', 'schedule_date', 'time_start', 'time_end']
     
-#    schedule_date = forms.DateField(widget=forms.SelectDateWidget)
+    schedule_date = forms.DateField(widget=forms.SelectDateWidget)
 #    time_start = forms.TimeField(widget=forms.TimeInput)
 
     widgets = {

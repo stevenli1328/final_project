@@ -11,24 +11,20 @@
     }
     button {
         text-align: center;
-        background-color: #007bff;
-        color: white;
-        border:none;
-        border-radius: 4px;
-        width: 8%;
-        padding: 2px;
-        display: inline-block;
-        margin: 2px 2px;
+            background-color: #f4623a;
+            color: white;
+            border:none;
+            border-radius: 500px;
+            width: 140px;
+            padding: 10px;
+            display: inline-block;
+            margin: 2px 2px;
     }
 </style>
 
-<br><br>
-<h1>Create New Schedule</h1>
-<hr size="2" width="38%" color="black">
-<br>
 <!--return error value from key 'error' if passwords don't match-->
 <h2>{{ error }}</h2>
-
+<br>
 <div class="form-style">
     <form method = "POST">
         {% csrf_token %}
