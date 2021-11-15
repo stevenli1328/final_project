@@ -1,9 +1,26 @@
 {%  extends 'website/main.html' %}
 
 {% block content %}
-{%for employee in employees%}
-{{employee}}
-{{employee.is_active}}
+<h1>List of Employees</h1>
+<table class = "table">
+    <thead>
+    <tr>
+        <th scope="col"> Employee Name</th>
+        <th scope="col"> Active Status</th>
+        <th scope="col"> Date of Birth</th>
+        <th scope="col"> Contact</th>
+    </tr> 
+    </thead>
+    <tbody>  
+        {%for employee in employees%}
+        <tr>
+            <td>{{employee}}</td>
+            <td>{{employee.is_active}}</td>
+            <td>{{employee.date_of_birth}}</td>
+            <td>{{employee.phone}}</td>
+        </tr>
+    </tbody>
+{%endfor%}        
+</table>
 <br>
-{%endfor%}
     {% endblock %}
