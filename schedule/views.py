@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 
 from .forms import ScheduleForm
 from userprofile.models import Employee
+from tasks.models import Task
 
 import json
 from django.core.serializers.json import DjangoJSONEncoder
@@ -29,6 +30,7 @@ def schedule(request):
 def eventsFeed(request):
     current_employee = Employee.objects.get(user=request.user)
     schedules = current_employee.schedule_set.all()
+    tasks = current_employee.task_set.all()
     json_list = []
     for schedule in schedules:
         title = schedule.title
@@ -36,7 +38,12 @@ def eventsFeed(request):
         end = str(schedule.time_end)
         json_entry = {'title': title,'start': start, 'end': end}
         json_list.append(json_entry) 
-
+    for task in tasks:
+        title = task.title
+        start = task.date_due.strftime("%Y-%m-%d")
+        json_entry = {'title': title, 'start': start, 'allDay': True}
+        json_list.append(json_entry)
+        
     return HttpResponse(json.dumps(json_list), content_type='application/json')
 
 def createschedule(request):
@@ -54,4 +61,4 @@ def createschedule(request):
 
 
 def bad(request):
-    return HttpResponse("Bad Page!")
+    return HttpResponse("Bad Page! Schedule")

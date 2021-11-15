@@ -7,23 +7,44 @@ from django.contrib import messages
 
 import datetime
 
-from .forms import CreateUserForm
+from .forms import CreateUserForm, EmployeeProfileForm
 from userprofile.models import Employee
 from django.db import IntegrityError
 
-@login_required(login_url='homepage')
+@login_required(login_url='/profile/login/')
 def user_profile(request, username):
     employee = Employee.objects.get(user=request.user)
+    form = EmployeeProfileForm(instance=employee)
+    group = Group.objects.get(user=request.user)
 
-    return render(request, 'userprofile/profile.html', {'employee': employee})
+    context = {'form': form, 
+    'error': '', 
+    'name': employee.first_name + " " + employee.last_name,
+    'employee': employee,
+    'group': group}
+    
+
+    if request.method=='GET':
+        return render(request, 'userprofile/profile.html', context)
+    else:
+        form=EmployeeProfileForm(request.POST, request.FILES, instance=employee)
+        context['form'] = form
+
+        if form.is_valid:
+            employee=form.save()
+            return render(request, 'userprofile/profile.html', context)
+        else:
+            context['error'] = 'Some fields are invalid. Please try again.'
+            return render(request, 'userprofile/profile.html', context)
+
 
 def login_user(request):
     if request.method == 'GET':
-        return render(request, 'userprofile/login.html', {'form': AuthenticationForm()})
+        return render(request, 'userprofile/newlogin.html')
     else:
-        user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
+        user = authenticate(request, username=request.POST.get("username"), password=request.POST.get("password"))
         if user is None:
-            return render(request, 'userprofile/login.html', {'form': AuthenticationForm(), 'error': 'Username and password did not match.'})
+            return render(request, 'userprofile/newlogin.html', {'form': AuthenticationForm(), 'error': 'Username and password did not match.'})
         else:
             login(request, user)
             return redirect('homepage')
@@ -53,6 +74,30 @@ def logout_user(request):
     logout(request)
     return redirect('profile:login')
 
+def editprofileinformation(request, username):
+    employee = Employee.objects.get(user=request.user)
+    form = EmployeeProfileForm(instance=employee)
+    
+    context = {'form': form, 
+        'error': '', 
+        'employee': employee}
+
+
+    if request.method=='GET':
+        return render(request, 'userprofile/editprofile.html', context)
+    else:
+        form=EmployeeProfileForm(request.POST, request.FILES, instance=employee)
+        context['form'] = form
+
+        if form.is_valid:
+            employee=form.save()
+            return redirect('profile:profile', username=request.user.username)
+        else:
+            context['error'] = 'Some fields are invalid. Please try again.'
+            return render(request, 'userprofile/editprofile.html', context)
+
+
+
         
 def other(request):
-    return HttpResponse("Bad Page!")
+    return HttpResponse("Bad Page! Userprofile")

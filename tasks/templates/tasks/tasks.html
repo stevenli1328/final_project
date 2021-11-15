@@ -1,10 +1,40 @@
 {% extends "website/main.html" %}
+
 {% block content %}
+<head>
+    <style>
+        body {
+            margin-top: 4%;
+        }
+        h1 {
+            text-align: center;
+            font-size: 50px;
+        }
+        p {
+            text-align: center;
+            font-style: italic;
+            font-size: 20px;
+        }
+        a {
+            text-align: center;
+        }
+        .submit-button {
+            text-align: center;
+        }
+    </style>
+</head>
+
+
 <h1>The Tasks Page</h1>
 
 
 {% if employee.user.is_staff %}
-<a class="btn btn-primary btn-xl" href="{% url 'tasks:newtask' %}">New Task</a>
+<hr size="2" width="38%" color="black">
+<div class="submit-button">
+<p>Create a new task using the button below</p>
+    <a class="btn btn-primary btn-xl" href="{% url 'tasks:newtask' %}">New Task</a>
+</div>
+
 {% endif %}
 
 {% endblock %}

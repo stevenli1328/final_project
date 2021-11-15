@@ -36,8 +36,4 @@ def employeeview(request):
 
 
 def other(request):
-    return HttpResponse("Bad Page!")
-
-
-def payroll(request):
-    return render(request, 'website/main.html', {'name': 'payroll'})
+    return HttpResponse("Bad Page! Website")

@@ -32,7 +32,7 @@ def createtask(request):
             newtask.assigner = Employee.objects.get(user=request.user)
             newtask.save()
             form.save_m2m()
-            return redirect('homepage')
+            return redirect('tasks:tasks')
         except ValueError:
             return render(request, 'tasks/newtask.html', {'form': TaskForm(),'error': 'Input Error'})
 
@@ -53,7 +53,7 @@ def viewtask(request, task_pk):
 
 
 def bad(request):
-    return HttpResponse("Bad Page!")
+    return HttpResponse("Bad Page! Tasks")
 
 
 # Create your views here.

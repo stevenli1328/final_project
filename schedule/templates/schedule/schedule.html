@@ -1,7 +1,17 @@
 {% extends "website/main.html" %}
 {% load static %}
 {% block header %}
-    <link href="{% static 'css/main.css' %}" rel='stylesheet' />
+
+<br>
+    {% comment %} centered nav bar {% endcomment %}
+    <style>
+        body {
+            text-align: center;
+            font-size: 18px;
+        }
+    </style>
+
+    <link href="{% static 'css/main.css' %}" rel='stylesheet' >
 
     <script>
       
@@ -22,7 +32,7 @@
 {% block content %}
 
 <div id='calendar'></div>
-
+<br>
 <a class="btn btn-primary btn-xl" href="{% url 'schedule:newschedule' %}">New Schedule</a>
 
 

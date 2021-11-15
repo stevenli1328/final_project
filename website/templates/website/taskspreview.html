@@ -1,53 +1,61 @@
-	<div class="col-md-10 mt-4">
-		<h2 class="text-center">Tasks</h2>
-        <hr>
-        {% if tasks is None %}
+<style>
+    body {
+        text-align: center;
+        position: center;
+    }
+</style>
 
-        <h1 class="display-3">Looks like you're all caught up!</h1>      
+    <div class="col-md-10 mt-4">
         
-        {% endif %}
-		<div class="card card-body">
-			<a class="btn btn-primary btn-sm btn-block" href="{% url 'tasks:newtask' %}">Create Task</a>
+        
+		<div class="card card-body "><h2 class="text-center"><a class="text-reset text-decoration-none" href='{% url "tasks:tasks"%}'>Company Tasks</a></h2>
+            <a class="btn btn-success btn-lg btn-block" href="{% url 'tasks:newtask' %}" role="button">Assign a New Task</a>
+            {% if tasks is None %}
+
+                <h1 class="display-3">Looks like you're all caught up!</h1>      
+        
+            
+            {% else %}
             <table class="table table-sm table-hover">
-				<tr>
-                    <th class="col-sm-4">Task</th>
-                    <th class="px-1">Assigned To</th>
-                    <th class="px-1">Assigned By</th>
-                    <th>Date Assigned</th>
-                    <th>Due Date</th>
-					<th>Status</th>
-                </tr>
-                {% if tasks is None %}
-
-
-
-                {% endif %}
-                {% for task in tasks %}
-                {% if task.is_complete %}<tr class="table-success">
-                {% else %} <tr>
-                {% endif %}
-                    <td><a class="text-reset text-decoration-none" href='{% url "tasks:viewtask" task.id%}'>{{ task.title }}</a></td>
-
-                    <td>{{ task.assignee.all.first|capfirst }}</td>
-
-                    <td>{{ task.assigner|capfirst }}</td>
-                    <td>{{ task.date_created.date }}</td>
-                    <td>Due Date</td>
-
-                    {% if task.is_complete %}
-                    <td>Complete</td>
-                    {% else %}
-                    <td>Incomplete</td>
+                <thead class="table-dark">
+                    <tr>
+                        <th class="col-sm-4">Task</th>
+                        <th>Assigned To</th>
+                        <th>Assigned By</th>
+                        <th>Date Assigned</th>
+                        <th>Due Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for task in tasks %}
+                    {% if task.is_complete %}<tr class="table-success">
+                    {% else %} <tr>
                     {% endif %}
+                        <td><a class="text-reset text-decoration-none" href='{% url "tasks:viewtask" task.id%}'>{{ task.title }}</a></td>
 
-                </tr>
-                {% endfor %}
+                        <td>{{ task.assignee.all.first|capfirst }}</td>
+
+                        <td>{{ task.assigner|capfirst }}</td>
+                        <td>{{ task.date_created.date }}</td>
+                        <td>Due Date</td>
+
+                        {% if task.is_complete %}
+                        <td>Complete</td>
+                        {% else %}
+                        <td>Incomplete</td>
+                        {% endif %}
+
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+                
             </table>
-
-        </div>
-        
+            {% endif %}
+            <div><a class = "text-reset fw-bold" href='{% url "tasks:tasks"%}'>View All</a></div>
+        </div>   
     </div>
-    <div class="fw-bold"><a class="text-reset text-decoration-none" href='{% url "tasks:tasks"%}'>View All</a></div>
 </div>
 
 

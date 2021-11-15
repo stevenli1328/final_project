@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import re_path, path, include
-
+from django.conf import settings
+from django.conf.urls.static import static
 from userprofile import views
 
 urlpatterns = [
@@ -23,6 +24,9 @@ urlpatterns = [
     path('tasks/', include('tasks.urls')),
     path('profile/', include('userprofile.urls')),
     path('schedule/', include('schedule.urls')),
+    path('payroll/', include('payroll.urls')),
     path('signup/', views.signupuser, name='register'),
     path('', include('website.urls')),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+

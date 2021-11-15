@@ -2,7 +2,7 @@
         
         .sidenav {
             height:100%;
-            width:160px;
+            width:140px;
             position:fixed;
             z-index:1;
             top:56px;
@@ -29,5 +29,5 @@
 <div class="sidenav">
         <a href="{% url 'tasks:tasks' %}">Tasks</a>
         <a href="{% url 'schedule:schedule' %}">Scheduling</a>
-        <a href="">Payroll</a>
+        <a href="{% url 'payroll:payroll' %}">Payroll</a>
 </div>
