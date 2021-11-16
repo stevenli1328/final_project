@@ -5,6 +5,6 @@ from . import views
 app_name='payroll'
 urlpatterns = [
 	path('', views.payroll, name = 'payroll'),
-    path('<int:payroll_id>', views.viewpayroll, name='viewpayroll'),
+    path('view', views.viewpayroll, name='viewpayroll'),
     re_path(r'.*', views.other, name = 'bad link')
 ]

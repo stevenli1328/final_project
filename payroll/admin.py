@@ -4,4 +4,3 @@ from .models import Payroll
 
 
 admin.site.register(Payroll)
-# Register your models here.

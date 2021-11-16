@@ -18,9 +18,9 @@ class EmployeeProfileForm(ModelForm):
     date_of_birth = forms.DateField(widget=SelectDateWidget(years=range(1930,2010), attrs={'class': 'form-control'}))
 
     first_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control',
-    'placeholder': 'Your Name'}))
+    'placeholder': 'First Name...'}))
     last_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control',
-    'placeholder': 'Your Name'}))
+    'placeholder': 'Last Name...'}))
 
     street = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
 

@@ -1,5 +1,4 @@
 {% extends 'website/main.html' %}
-
 {% block content %}
 
 <style>
@@ -30,28 +29,16 @@
     }
 </style>
 
-
+<!--This can all be replaced by a form-->
 <br>
 <div class="container px-4">
     <div class="row gx-5">
         <div class="col">
             <form method="POST">
             {% csrf_token %}
-            <div class="p-3 border bg-light"><div class=pr-2>Employee to view payroll data: </div>
-                <select class="form-select" name="employee_name" required>
-                <option>Select...</option>
-                {% for employee in employees %}
-                    <option id="employee_name">{{employee}}</option>
-                {% endfor %}
-                </select>
-                <div class=px-2>In the range from:</div>
-                <select class="form-select" name="date_from" required>
-                <option>Select...</option>
-                </select>
-                <div class=px-2>To the range of:</div>
-                <select class="form-select" name="date_to" required>
-                <option>Select...</option>
-                </select>
+            
+            <div class="p-3 border bg-light">
+                {{form}}
             </div>
                 <div class="mb-3">
                     <br>

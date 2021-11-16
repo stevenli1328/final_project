@@ -9,7 +9,7 @@
         
         
 		<div class="card card-body "><h2 class="text-center"><a class="text-reset text-decoration-none" href='{% url "tasks:tasks"%}'>Company Tasks</a></h2>
-            <a class="btn btn-success btn-lg btn-block" href="{% url 'tasks:newtask' %}" role="button">Assign a New Task</a>
+            <a class="btn btn-primary btn-lg btn-block" href="{% url 'tasks:newtask' %}" role="button">Assign a New Task</a>
             {% if tasks is None %}
 
                 <h1 class="display-3">Looks like you're all caught up!</h1>      
