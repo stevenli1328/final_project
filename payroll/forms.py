@@ -21,7 +21,7 @@ class PayrollForm(ModelForm):
         fields = ['employee', 'pay_period_start', 'pay_period_end']
 
     employee = forms.CharField(
-        label = 'Select Employee to view payroll data for:',
+        label = 'Select employee to view payroll data:',
         widget=forms.Select(
             attrs={'class': 'form-control'}, 
             choices=(choices)

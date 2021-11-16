@@ -1,13 +1,46 @@
 {% extends 'website/main.html' %}
 
 {% block content %}
-<style>
-    body {
-        font-size: 22px;
-        text-align: center;
-    }
-</style>
-<br><br>
-{{paystub}}
+<div class="col-md-10 mt-4">
+	<div class="card card-body "><h2 class="text-center"><a class="text-reset text-decoration-none" href=''>Paystubs</a></h2>
+        <a class="btn btn-primary btn-lg btn-block" href="{% url 'payroll:payroll' %}" role="button">Search for more payroll data</a>
+            {% if paystubs is None %}
+                <h3 class="display-3">Looks like there's no payroll data for those dates!!</h3>      
+            {% else %}
+            <table class="table table-sm table-hovesr">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="col-sm-4">Employee</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for paystub in paystubs %}
+                    {% if paystub.is_paid %}<tr class="table-success">
+                    {% else %} <tr>
+                    {% endif %}
+                        <td><a class="text-reset text-decoration-none" href=''>{{ paystub.employee|capfirst }}</a></td>
 
+                        <td>{{ paystub.pay_period_start }}</td>
+
+                        <td>{{ paystub.pay_period_end }}</td>
+                        {% if paystub.is_paid %}
+                        <td>Paid</td>
+                        {% else %}
+                        <td>Not Paid</td>
+                        {% endif %}
+
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+                
+            </table>
+            {% endif %}
+            <!--<div><a class = "text-reset fw-bold" href='{% url "tasks:tasks"%}'>View All</a></div> -->
+        </div>   
+    </div>
+</div>
 {% endblock %}

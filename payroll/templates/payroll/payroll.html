@@ -2,38 +2,17 @@
 {% block content %}
 
 <style>
-    body {
-        text-align: center;
-        position: center;
-    }
     div.p-3 {
         font-size: 24px;
     }
     div.px-2 {
         font-size: 24px;
-    }
-    .form-select {  
-        text-align: center;     
-
-    }
-    .btn-primary {
-        text-align: center;
-            background-color: #f4623a;
-            color: white;
-            border:none;
-            border-radius: 500px;
-            width: 140px;
-            padding: 18px;
-            display: inline-block;
-            margin: 2px 2px;
-    }
+    }   
 </style>
-
-<!--This can all be replaced by a form-->
 <br>
 <div class="container px-4">
-    <div class="row gx-5">
-        <div class="col">
+    <div class="row gy-2 gx-3 align-items-center">
+        <div class = "col-sm-5">
             <form method="POST">
             {% csrf_token %}
             
@@ -41,9 +20,7 @@
                 {{form}}
             </div>
                 <div class="mb-3">
-                    <br>
                     <button class="btn btn-primary" type="submit">Get Paystub</button>
-                    <br><br>
                     <span>{{error}}</span>
                 </form>
             </div>

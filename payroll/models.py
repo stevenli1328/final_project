@@ -7,3 +7,4 @@ class Payroll(models.Model):
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
     pay_period_start = models.DateField()
     pay_period_end = models.DateField()
+    is_paid = models.BooleanField(default=False)
