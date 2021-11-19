@@ -34,8 +34,8 @@
                         <td>{{ task.assignee.all.first|capfirst }}</td>
 
                         <td>{{ task.assigner|capfirst }}</td>
-                        <td>{{ task.date_created.date }}</td>
-                        <td>Due Date</td>
+                        <td>{{ task.date_created.date|date:"M. d, Y" }}</td>
+                        <td>{{ task.date_due.date|date:"M. d, Y" }}</td>
 
                         {% if task.is_complete %}
                         <td>Complete</td>

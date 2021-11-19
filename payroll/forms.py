@@ -30,16 +30,16 @@ class PayrollForm(ModelForm):
 
     pay_period_start = forms.DateField(
         label = 'From date',
-        widget=forms.SelectDateWidget(
-            years=[2021],
-            attrs={'class': 'form-control'}
+        widget=forms.NumberInput(
+            attrs={'class': 'form-control',
+            'type': 'date'}
         )
     )
 
     pay_period_end = forms.DateField(
         label = 'To date',
-        widget=forms.SelectDateWidget(
-            years=[2021],
-            attrs={'class': 'form-control'}
+        widget=forms.NumberInput(
+            attrs={'class': 'form-control',
+            'type': 'date'}
         )
     )

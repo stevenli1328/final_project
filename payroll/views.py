@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 
-from datetime import date
+from datetime import datetime
 from userprofile.models import Employee
 from .models import Payroll
 from .forms import PayrollForm
@@ -16,12 +16,8 @@ def payroll(request):
         
         form = PayrollForm(request.POST or None)
         employee_name = form.data['employee']
-        pay_period_start_date = date(int(form.data['pay_period_start_year']), 
-            int(form.data['pay_period_start_month']), 
-            int(form.data['pay_period_start_day']))
-        pay_period_end_date = date(int(form.data['pay_period_end_year']), 
-            int(form.data['pay_period_end_month']), 
-            int(form.data['pay_period_end_day']))
+        pay_period_start_date = datetime.strptime(form.data['pay_period_start'], '%Y-%m-%d').date()
+        pay_period_end_date = datetime.strptime(form.data['pay_period_end'], '%Y-%m-%d').date()
 
         
         try:
