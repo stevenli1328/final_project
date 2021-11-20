@@ -1,5 +1,6 @@
 from django.db import models
 from userprofile.models import Employee
+import datetime
 
 class Payroll(models.Model):
     class Meta:
@@ -8,3 +9,10 @@ class Payroll(models.Model):
     pay_period_start = models.DateField()
     pay_period_end = models.DateField()
     is_paid = models.BooleanField(default=False)
+
+    def __str__(self):
+        if self.is_paid:
+            paid = 'Paid.'
+        else:
+            paid = 'Not paid.'
+        return str(self.employee).capitalize() + ', ' + self.pay_period_end.strftime("%m/%d/%Y") + ', ' + paid

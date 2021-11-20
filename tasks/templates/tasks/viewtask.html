@@ -2,14 +2,29 @@
 
 {% block content %}
 
-
-
-
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_ul }}
-<div class="d-grid"><button class="btn btn-primary btn-xl" id="submitButton" type="submit">Submit</button></div>
-</form>
+<div class="container-fluid">
+    <div class="card">
+        <h5 class="card-header">Edit this task</h5>    
+        <form method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="row">
+                <div class="col-sm-2 col-form-label">
+                    {{field.label}}
+                </div>
+            </div>    
+                <div class="row-lg">
+                    {{ field }}
+                </div>
+            {% endfor %}
+    </div>
+    
+        <div class="mb-3">
+            <button class="btn btn-primary" type="submit">Edit Task</button>
+                <span>{{error}}</span>
+        </div>
+    </form>
+</div>
 
 
 {% endblock %}

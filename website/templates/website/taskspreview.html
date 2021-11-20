@@ -29,7 +29,7 @@
                     {% if task.is_complete %}<tr class="table-success">
                     {% else %} <tr>
                     {% endif %}
-                        <td><a class="text-reset text-decoration-none" href='{% url "tasks:viewtask" task.id%}'>{{ task.title }}</a></td>
+                        <td><a class="text-reset text-decoration-none" href='{% url "tasks:edittask" task.id%}'>{{ task.title }}</a></td>
 
                         <td>{{ task.assignee.all.first|capfirst }}</td>
 

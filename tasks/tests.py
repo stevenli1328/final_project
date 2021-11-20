@@ -6,35 +6,61 @@ import datetime
 import random
 
 class TaskModelTest(TestCase):
+    def setUp(self):
+        manager = Employee.objects.create(
+            user=User.objects.create(username='Mister_Manager')
+        )
+        employee1 = Employee.objects.create(
+            user=User.objects.create(username='Employee1')
+        )
+        employee2 = Employee.objects.create(
+            user=User.objects.create(username='Employee2')
+        )
 
-    #Create 1 assigner employee and 10 new employees. 
-    #Then create ten tasks, each with the same assigner, but each 
-    #with some random number (between 1 and ten) of assignee's.
-    @classmethod
-    def setUpTestData(self):
-        assigner1 = Employee.objects.create(
-                user=User.objects.create(username='kurt'))
+        Task.objects.create(
+            title='Here is a completed task in the past',
+            description='',
+            assigner=manager,
+            date_due=datetime.date(2021, 8, 1),
+            is_complete=True
+        )
 
-        employees = []
+        Task.objects.create(
+            title='Here is a task in the past',
+            description='Some text',
+            assigner=manager,
+            date_due=datetime.date(2021, 7, 15),
+            is_complete=False
+        )
 
-        for i in range(10):
-            employees.append(Employee.objects.create(
-                user=User.objects.create(username='employee number ' + str(i))
-            ))
+        Task.objects.create(
+            title='Here is a task in the present',
+            description='Some text',
+            assigner=manager,
+            date_due=datetime.date.today(),
+            is_complete=False        
+        )
+
+        Task.objects.create(
+            title='Here is a task in the future',
+            description='Some text',
+            assigner=manager,
+            date_due=datetime.date(2021, 12, 5),
+            is_complete=False
+        )
 
 
-        for i in range(10):
-            task = Task.objects.create(
-                title='do thing number ' + str(i),
-                assigner=assigner1,
-                description='a bunch of descriptors here'
-            )
+    def testReadTasks(self):
+        pastCompletedTask = Task.objects.get(title='Here is a completed task in the past')
+        pastNotCompletedTask = Task.objects.get(title='Here is a task in the past')
+        presentTask = Task.objects.get(title='Here is a task in the present')
+        futureTask = Task.objects.get(title='Here is a task in the future')
+        user = User.objects.get(username='Mister_Manager')
+        manager = Employee.objects.get(user=user)
 
-            ass_count = random.randrange(10)
-            print(ass_count)
-            
-            for j in range(ass_count):
-                task.assignee.add(employees[j]) 
+        self.assertEqual(pastCompletedTask.assigner, manager)
+        self.assertEqual(pastNotCompletedTask.assigner, manager)
+        self.assertEqual(presentTask.assigner, manager)
+        self.assertEqual(futureTask.assigner, manager)
 
-
-        
+    

@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User, Group
 
 from userprofile.models import Employee
-from .forms import TaskForm
+from .forms import TaskForm, TaskEditForm
 from .models import Task
 
 
@@ -36,20 +36,22 @@ def createtask(request):
         except ValueError:
             return render(request, 'tasks/newtask.html', {'form': TaskForm(),'error': 'Input Error'})
 
-@login_required(login_url='homepage')
-def viewtask(request, task_pk):
+@user_passes_test(manager_check, login_url='homepage')
+def edittask(request, task_pk):
     task =  get_object_or_404(Task, pk=task_pk)
     if request.method == 'GET':
-        form = TaskForm(instance=task)
+        form = TaskEditForm(instance=task)
         return render(request, 'tasks/viewtask.html', {'task':task, 'form': form})
     else:
         try:
-            form = TaskForm(request.POST, instance=task)
+            form = TaskEditForm(request.POST, instance=task)
             if form.is_valid():
                 form.save()
+                form.save_m2m()
                 return redirect('homepage')
         except ValueError:
             return render(request, 'tasks/viewtask.html', {'task':task, 'form': form, 'error': 'Bad information.'})
+
 
 
 def bad(request):

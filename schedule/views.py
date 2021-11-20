@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from .forms import ScheduleForm
 from userprofile.models import Employee
 from tasks.models import Task
+import datetime
 
 import json
 from django.core.serializers.json import DjangoJSONEncoder
@@ -41,7 +42,20 @@ def eventsFeed(request):
     for task in tasks:
         title = task.title
         start = task.date_due.strftime("%Y-%m-%d")
-        json_entry = {'title': title, 'start': start, 'allDay': True}
+        textColor = None
+        color = None
+
+        if(task.is_complete):
+            color = 'green'
+        elif(task.is_complete is not True and task.date_due.date() < datetime.date.today()):
+            color = 'red'
+        elif(task.is_complete is not True and 
+        task.date_due.date() >= datetime.date.today() and 
+        task.date_due.date() - datetime.date.today() < datetime.timedelta(hours=24)):
+            color = 'yellow'
+            textColor= 'black'
+        
+        json_entry = {'title': title, 'start': start, 'color': color, 'textColor': textColor, 'allDay': True}
         json_list.append(json_entry)
         
     return HttpResponse(json.dumps(json_list), content_type='application/json')

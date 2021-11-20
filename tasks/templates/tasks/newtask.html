@@ -2,17 +2,14 @@
 
 {% block content %}
 
-
-<h2>{{ error }}</h2>
-
 <div class="container-fluid">
     <div class="card">
-        <h5 class="card-header">Create a new task</h5>    
+        <h4 class="card-header text-center">Create a new task</h4>    
         <form method="POST">
             {% csrf_token %}
             {% for field in form %}
-            <div class="row">
-                <div class="col-sm-2 col-form-label">
+            <div class="row fw-bold">
+                <div class="col-sm-2 col-form-label ">
                     {{field.label}}
                 </div>
             </div>    
@@ -23,7 +20,7 @@
     </div>
     
         <div class="mb-3">
-            <button class="btn btn-primary" type="submit">New Task</button>
+            <button class="btn btn-primary btn-lg btn-block" type="submit">Create this task</button>
                 <span>{{error}}</span>
         </div>
     </form>
