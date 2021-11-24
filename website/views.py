@@ -24,7 +24,7 @@ def homepage(request):
         return render(request, 'website/managerdashboard.html', {'tasks': tasks, 'managers': managers, 'employees': employees})
     elif request.user in employees:
         current_employee = Employee.objects.get(user=request.user)
-        tasks = current_employee.assignee.all()
+        tasks = current_employee.assignee.all().order_by('-date_due')
         return render(request, 'website/employeedashboard.html', {'tasks': tasks})
     else:
         return HttpResponse("Sorry, you aren't properly authenticated!")

@@ -13,7 +13,6 @@
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
-            googleCalendarApiKey: 'AIzaSyAYhkF8K-I99n_j0RhGcfcechvyxpdggHg',
             events: '/schedule/eventsFeed',
             initialView: 'dayGridMonth',
             height: "auto"
@@ -25,9 +24,7 @@
 
 {% endblock %}
 {% block content %}
-
-<div class="ms-5" id='calendar'></div>
-<br>
+<div id='calendar'></div>
 <a class="btn btn-primary btn-xl" href="{% url 'schedule:newschedule' %}">New Schedule</a>
 
 

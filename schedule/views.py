@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.models import User, Group
 
 from .forms import ScheduleForm
 from userprofile.models import Employee
@@ -16,29 +17,27 @@ def employee_check(user):
 
 @user_passes_test(employee_check, login_url='homepage')
 def schedule(request):
-    current_employee = None
-    schedules = None
-
-    if request.user.is_authenticated:
-        current_employee = Employee.objects.get(user=request.user)
-        schedules = current_employee.schedule_set.all()
-
-    return render(request, 'schedule/schedule.html', 
-    {'name': 'schedule', 
-    'employee': current_employee, 
-    'schedules': schedules})
+    return render(request, 'schedule/schedule.html')
 
 def eventsFeed(request):
+    managers = Group.objects.get(name='managers').user_set.all()
+    employees = Group.objects.get(name='employees').user_set.all()
+
     current_employee = Employee.objects.get(user=request.user)
     schedules = current_employee.schedule_set.all()
-    tasks = current_employee.task_set.all()
+    if request.user in employees:
+        tasks = current_employee.assignee.all()
+    else:
+        tasks = Task.objects.all()
     json_list = []
+
     for schedule in schedules:
         title = schedule.title
         start = schedule.schedule_date.strftime("%Y-%m-%d") + 'T' + str(schedule.time_start)
         end = str(schedule.time_end)
         json_entry = {'title': title,'start': start, 'end': end}
         json_list.append(json_entry) 
+        
     for task in tasks:
         title = task.title
         start = task.date_due.strftime("%Y-%m-%d")
@@ -51,7 +50,7 @@ def eventsFeed(request):
             color = 'red'
         elif(task.is_complete is not True and 
         task.date_due.date() >= datetime.date.today() and 
-        task.date_due.date() - datetime.date.today() < datetime.timedelta(hours=24)):
+        task.date_due.date() - datetime.date.today() < datetime.timedelta(days=2)):
             color = 'yellow'
             textColor= 'black'
         

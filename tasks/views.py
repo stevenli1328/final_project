@@ -15,11 +15,16 @@ def manager_check(user):
 def tasks(request):
     current_employee = None
     tasks = None
+    managers = Group.objects.get(name='managers').user_set.all()
+    employees = Group.objects.get(name='employees').user_set.all()
 
-    if request.user.is_authenticated:
+    if request.user in managers:
         current_employee = Employee.objects.get(user=request.user)
-        tasks = current_employee.assignee.all()
-    return render(request, 'tasks/tasks.html', {'name': 'tasks', 'employee': current_employee, 'tasks': tasks})
+        tasks = Task.objects.order_by('-date_created')
+    elif request.user in employees:
+        current_employee = Employee.objects.get(user=request.user)
+        tasks = current_employee.assignee.all().order_by('-date_due')
+    return render(request, 'tasks/tasks.html', {'employee': current_employee, 'tasks': tasks})
 
 @user_passes_test(manager_check, login_url='homepage')
 def createtask(request):
@@ -34,25 +39,29 @@ def createtask(request):
             form.save_m2m()
             return redirect('tasks:tasks')
         except ValueError:
-            return render(request, 'tasks/newtask.html', {'form': TaskForm(),'error': 'Input Error'})
+            return render(request, 'tasks/newtask.html', {'form': form,'error': 'Please assign task to at least one person'})
 
 @user_passes_test(manager_check, login_url='homepage')
 def edittask(request, task_pk):
     task =  get_object_or_404(Task, pk=task_pk)
     if request.method == 'GET':
-        form = TaskEditForm(instance=task)
-        return render(request, 'tasks/viewtask.html', {'task':task, 'form': form})
+        form = TaskEditForm(initial={'date_due': task.date_due.date().isoformat()}, instance=task)
+        return render(request, 'tasks/edittask.html', {'task':task, 'form': form})
     else:
         try:
             form = TaskEditForm(request.POST, instance=task)
             if form.is_valid():
                 form.save()
-                form.save_m2m()
-                return redirect('homepage')
+                return redirect('tasks:tasks')
         except ValueError:
-            return render(request, 'tasks/viewtask.html', {'task':task, 'form': form, 'error': 'Bad information.'})
+            return render(request, 'tasks/edittask.html', {'task':task, 'form': form, 'error': 'Bad information.'})
 
-
+def deletetask(request, task_pk):
+    task =  get_object_or_404(Task, pk=task_pk)
+    if request.method=='POST':
+        task.delete()
+        return redirect('tasks:tasks')
+    return render(request, 'tasks/deletetask.html', {'task': task})
 
 def bad(request):
     return HttpResponse("Bad Page! Tasks")

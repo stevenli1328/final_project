@@ -9,7 +9,7 @@ employees = Employee.objects.all()
 i = 1
 for employee in employees:
     
-    entry = [employee, str(employee)]
+    entry = [employee, str(employee).capitalize()]
     entry_tuple = tuple(entry)
     employee_list.append(entry_tuple)
     i = i+1
@@ -30,6 +30,27 @@ class PayrollForm(ModelForm):
 
     pay_period_start = forms.DateField(
         label = 'From date',
+        widget=forms.NumberInput(
+            attrs={'class': 'form-control',
+            'type': 'date'}
+        )
+    )
+
+    pay_period_end = forms.DateField(
+        label = 'To date',
+        widget=forms.NumberInput(
+            attrs={'class': 'form-control',
+            'type': 'date'}
+        )
+    )
+
+class PayrollViewForm(ModelForm):
+    class Meta:
+        model = Payroll
+        fields = ['pay_period_start', 'pay_period_end']
+    
+    pay_period_start = forms.DateField(
+        label = 'Get payroll data starting from:',
         widget=forms.NumberInput(
             attrs={'class': 'form-control',
             'type': 'date'}

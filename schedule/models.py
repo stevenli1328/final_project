@@ -8,6 +8,7 @@ from datetime import datetime
 class Schedule(models.Model):
     class Meta:
         constraints = [models.UniqueConstraint(fields=['employee', 'schedule_date'], name='unique_shift') ]
+    
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
     title = models.CharField(max_length=100, blank=True)
     schedule_date = models.DateField()

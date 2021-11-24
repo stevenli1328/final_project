@@ -1,27 +1,16 @@
-<style>
-    #btn {
-        text-align: center;
-        position: center;
-    }
-</style>
-
-<br>
-<div class="row mt-2 mx-2">
-	<div class="col-md-5">
+<div class="col">
         <!--Add link to employee view page-->
-		<div class="card card-body"><h2 class="text-center"><a class="text-reset text-decoration-none" href='{% url "employeeview"%}'>Employees</a></h2>
-            <div class="btn-group gap-2">
+	<div class="card card-body"><h2 class="text-center"><a class="text-reset text-decoration-none" href='{% url "employeeview"%}'>Employees</a></h2>
+        <div class="btn-group gap-2">
             <a class="btn btn-primary btn-sm" href="">Create New Employee</a>
             <a class="btn btn-primary btn-sm" href="">Create New Team</a>
-            </div>
-			<table class="table table-sm" id="employeeTable">
-
-				<tr>
-					<th class="text-center" onclick="sortTable(0)">Employee</th>
-					<th class="text-center" onclick="sortTable(1)">Team</th>
-                </tr>
-
-                {% for manager in managers %}
+        </div>
+		<table class="table table-sm" id="employeeTable">
+			<tr>
+				<th class="text-center" onclick="sortTable(0)">Employee</th>
+				<th class="text-center" onclick="sortTable(1)">Team</th>
+            </tr>
+            {% for manager in managers %}
                 <tr>
                     <td>{{ manager|capfirst }}</td>
                     <td class="text-center">Managers</td>
