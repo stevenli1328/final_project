@@ -20,11 +20,11 @@ class PayrollForm(ModelForm):
         model = Payroll
         fields = ['employee', 'pay_period_start', 'pay_period_end']
 
-    employee = forms.CharField(
+    employee = forms.ModelChoiceField(
         label = 'Select employee to view payroll data:',
+        queryset=Employee.objects.all(),
         widget=forms.Select(
-            attrs={'class': 'form-control'}, 
-            choices=(choices)
+            attrs={'class': 'form-control'}
         )
     )
 

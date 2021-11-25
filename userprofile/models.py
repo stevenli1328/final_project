@@ -20,5 +20,5 @@ class Employee(models.Model):
     postal_code = models.CharField(max_length=5, null=True, blank=True, verbose_name='Postal Code')
 
     def __str__(self):
-        return self.user.username
+        return self.user.username.capitalize()
 

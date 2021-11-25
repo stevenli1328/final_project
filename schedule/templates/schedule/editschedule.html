@@ -2,18 +2,16 @@
 
 {% block content %}
 
-
-<!--return error value from key 'error' if passwords don't match-->
-
 <div class="container-fluid">
     <div class="col py-2">
         <div class="card w-75">
-            <h4 class="card-header text-center">Create a new shift</h4>    
+            <h4 class="card-header text-center">Edit this shift</h4>    
                 <div class="form-style">
                     <form method = "POST">
                         {% csrf_token %}
                         {{ form.as_p }}
-                <button class="btn btn-primary" type="submit">New Schedule</button>
+                <button class="btn btn-primary" type="submit">Edit Shift</button>
+                <a class="btn btn-danger" href="{% url 'schedule:deleteschedule' schedule.id %}">Delete Shift</a>
                     </form>
                 </div>
             <h2>{{ error }}</h2>

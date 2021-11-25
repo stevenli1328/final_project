@@ -1,0 +1,43 @@
+{% extends "website/main.html" %}
+
+{% block content %}
+<div class="col-md-10 mt-4">
+    <div class="card card-body "><h2 class="text-center">Time off requests</h2>
+        {% if timeoffrequests is None %}
+        <h1 class="display-3">No requests yet!</h1>      
+        {% else %}
+        <table class="table table-sm table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th class="col-sm-4">Employee</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Date Created</th>
+                    <th>Approved?</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for timeoffrequest in timeoffrequests %}
+                {% if timeoffrequest.is_approved %}<tr class="table-success">
+                {% else %} <tr>
+                {% endif %}
+                <td><a class="text-reset text-decoration-none" href='{% url "schedule:approvetimeoff" timeoffrequest.id %}'>{{ timeoffrequest.employee }}</a></td>    
+                           
+                <td>{{ timeoffrequest.start_date|date:"M. d, Y" }}</td>
+                <td>{{ timeoffrequest.end_date|date:"M. d, Y" }}</td>
+                <td>{{ timeoffrequest.date_created|date:"M. d, Y" }}</td>
+                {% if timeoffrequest.is_approved %}
+                <td>Approved</td>
+                {% else %}
+                <td>Not Yet Approved</td>
+                {% endif %}
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+        {% endif %}
+        </div>   
+    </div>
+</div>
+{% endblock %}

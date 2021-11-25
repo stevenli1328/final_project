@@ -11,7 +11,9 @@ from django.db import IntegrityError
 
 from userprofile.models import Employee
 from tasks.models import Task
+from schedule.models import Schedule
 
+import datetime
 
 
 @login_required(login_url='/profile/login/')
@@ -21,7 +23,8 @@ def homepage(request):
 
     if request.user in managers or request.user.is_superuser:
         tasks = Task.objects.order_by('-date_created')[:10]
-        return render(request, 'website/managerdashboard.html', {'tasks': tasks, 'managers': managers, 'employees': employees})
+        schedules = Schedule.objects.filter(schedule_date=datetime.date.today())
+        return render(request, 'website/managerdashboard.html', {'tasks': tasks, 'schedules': schedules, 'managers': managers, 'employees': employees})
     elif request.user in employees:
         current_employee = Employee.objects.get(user=request.user)
         tasks = current_employee.assignee.all().order_by('-date_due')

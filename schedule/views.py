@@ -1,9 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User, Group
 
-from .forms import ScheduleForm
+from .forms import ScheduleForm, ScheduleEditForm, TimeOffRequestForm, TimeOffApproveForm
+from .models import Schedule, TimeOffRequest
 from userprofile.models import Employee
 from tasks.models import Task
 import datetime
@@ -60,16 +61,70 @@ def eventsFeed(request):
     return HttpResponse(json.dumps(json_list), content_type='application/json')
 
 def createschedule(request):
-        if request.method == 'GET':
-            return render(request, 'schedule/newschedule.html', {'form': ScheduleForm()})
-        else:
-            try:
-                form = ScheduleForm(request.POST)
-                newschedule = form.save(commit=False)
-                newschedule.save()
+    if request.method == 'GET':
+        form = ScheduleForm(initial={'schedule_date': datetime.date.today()})
+        return render(request, 'schedule/newschedule.html', {'form': form})
+    else:
+        try:
+            form = ScheduleForm(request.POST)
+            newschedule = form.save(commit=False)
+            newschedule.save()
+            return redirect('schedule:schedule')
+        except ValueError:
+            return render(request, 'schedule/newschedule.html', {'form': form,'error': 'Input Error'})
+
+def editschedule(request, schedule_pk):
+    schedule =  get_object_or_404(Schedule, pk=schedule_pk)
+    if request.method == 'GET':
+        form = ScheduleEditForm(initial={'schedule_date': schedule.schedule_date.isoformat()}, instance=schedule)
+        return render(request, 'schedule/editschedule.html', {'schedule':schedule, 'form': form})
+    else:
+        try:
+            form = ScheduleEditForm(request.POST, instance=schedule)
+            if form.is_valid():
+                form.save()
                 return redirect('schedule:schedule')
-            except ValueError:
-                return render(request, 'schedule/newschedule.html', {'form': ScheduleForm(),'error': 'Input Error'})
+        except ValueError:
+            return render(request, 'schedule/editschedule.html', {'schedule':schedule, 'form': form, 'error': 'Bad information.'})
+
+def deleteschedule(request, schedule_pk):
+    schedule =  get_object_or_404(Schedule, pk=schedule_pk)
+    if request.method=='POST':
+        schedule.delete()
+        return redirect('schedule:schedule')
+    return render(request, 'schedule/deleteschedule.html', {'schedule': schedule})
+
+
+def timeoffrequest(request):
+    if request.method == 'GET':
+        form = TimeOffRequestForm()
+        return render(request, 'schedule/newtimeoff.html', {'form': form})
+    else:
+        try:
+            form = TimeOffRequestForm(request.POST)
+            form.save()
+            return redirect('schedule:schedule')
+        except ValueError:
+            return render(request, 'schedule/newtimeoff.html', {'form': form, 'error': 'Input Error'})
+
+def timeoff(request):
+    timeoffrequests = TimeOffRequest.objects.order_by('-start_date')
+    return render(request, 'schedule/viewtimeoff.html', {'timeoffrequests': timeoffrequests})
+
+def approvetimeoff(request, timeoff_pk):
+    timeoffrequest = get_object_or_404(TimeOffRequest, pk=timeoff_pk)
+    
+    if request.method == 'GET':
+        form = form = TimeOffApproveForm(instance=timeoffrequest)
+        return render(request, 'schedule/approvetimeoff.html', {'form': form})
+    else:
+        try:
+            form = TimeOffApproveForm(request.POST, instance=timeoffrequest)
+            if form.is_valid():
+                form.save()
+                return redirect('schedule:schedule')
+        except ValueError:
+            return render(request, 'schedule/approvetimeoff.html', {'form': form, 'error': 'Bad information.'})
 
 
 

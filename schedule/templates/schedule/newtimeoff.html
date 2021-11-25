@@ -1,19 +1,17 @@
 {% extends "website/main.html" %}
 
 {% block content %}
-
-
 <!--return error value from key 'error' if passwords don't match-->
 
 <div class="container-fluid">
     <div class="col py-2">
         <div class="card w-75">
-            <h4 class="card-header text-center">Create a new shift</h4>    
+            <h4 class="card-header text-center">Create a new time off request</h4>    
                 <div class="form-style">
                     <form method = "POST">
                         {% csrf_token %}
                         {{ form.as_p }}
-                <button class="btn btn-primary" type="submit">New Schedule</button>
+                <button class="btn btn-primary" type="submit">Submit Request</button>
                     </form>
                 </div>
             <h2>{{ error }}</h2>

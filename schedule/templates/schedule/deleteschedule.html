@@ -1,0 +1,16 @@
+{% extends "website/main.html" %}
+
+{% block content %}
+<div class="card text-center">
+    <div class="card-body">
+    <form method="POST">
+        {% csrf_token %}
+        <h5 class="card-title">Are you sure you want to delete this schedule: </h5>
+        <p class="card-text">{{schedule.employee|capfirst}}'s shift on {{schedule.schedule_date}}, starting {{schedule.time_start}}</p>
+        <a href="{% url 'homepage' %}" class="btn btn-primary">Cancel</a>
+        <button class="btn btn-danger" type="submit">Confirm</button>
+    </form>
+    </div>
+  </div>
+
+{% endblock %}
