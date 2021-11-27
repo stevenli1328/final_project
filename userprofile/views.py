@@ -100,4 +100,4 @@ def editprofileinformation(request, username):
 
         
 def other(request):
-    return HttpResponse("Bad Page! Userprofile")
+    return render(request, 'website/badpage.html')

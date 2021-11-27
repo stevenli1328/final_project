@@ -3,6 +3,7 @@
 {% block content %}
 <div class="col-md-10 mt-4">
     <div class="card card-body "><h2 class="text-center">Time off requests</h2>
+        <a class="btn btn-primary btn-lg btn-block" href="{% url 'schedule:newtimeoff' %}" role="button">Request Time Off</a>
         {% if timeoffrequests is None %}
         <h1 class="display-3">No requests yet!</h1>      
         {% else %}

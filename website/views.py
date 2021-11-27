@@ -36,7 +36,3 @@ def homepage(request):
 def employeeview(request):
     employees = Employee.objects.all()
     return render(request, 'website/employeeview.html',{'employees': employees})
-
-
-def other(request):
-    return HttpResponse("Bad Page! Website")
