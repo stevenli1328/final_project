@@ -4,8 +4,10 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User, Group
 
 from userprofile.models import Employee
-from .forms import TaskForm, TaskEditForm
+from .forms import TaskForm, TaskEditForm, TaskViewForm
 from .models import Task
+
+import datetime
 
 
 def manager_check(user):
@@ -41,12 +43,16 @@ def createtask(request):
         except ValueError:
             return render(request, 'tasks/newtask.html', {'form': form,'error': 'Please assign task to at least one person'})
 
-@user_passes_test(manager_check, login_url='homepage')
+@login_required(login_url='homepage')
 def edittask(request, task_pk):
     task =  get_object_or_404(Task, pk=task_pk)
     if request.method == 'GET':
-        form = TaskEditForm(initial={'date_due': task.date_due.date().isoformat()}, instance=task)
-        return render(request, 'tasks/edittask.html', {'task':task, 'form': form})
+        if(manager_check(request.user)):
+            form = TaskEditForm(initial={'date_due': task.date_due.date().isoformat()}, instance=task)
+            return render(request, 'tasks/edittask.html', {'task':task, 'form': form})
+        else:
+            form = TaskViewForm(initial={'date_due': task.date_due.date().isoformat(), 'date_completed': datetime.date.today()}, instance=task)
+            return render(request, 'tasks/edittask.html', {'task':task, 'form': form})
     else:
         try:
             form = TaskEditForm(request.POST, instance=task)

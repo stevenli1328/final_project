@@ -112,10 +112,10 @@ class TaskViewForm(ModelForm):
     description = forms.CharField(disabled=True, widget=forms.Textarea(attrs={'class': 'form-control',
     'placeholder': 'Description...'}))
 
-    is_complete = forms.BooleanField(widget=forms.CheckboxInput(attrs={'class': 'form-control'}))
+    is_complete = forms.BooleanField(widget=forms.CheckboxInput())
 
     date_completed = forms.DateField(
-        label = 'Date Due:',
+        label = 'Date Completed:',
         widget=NumberInput(
             attrs={'class': 'form-control',
             'type': 'date'}

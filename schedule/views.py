@@ -12,32 +12,50 @@ import datetime
 import json
 from django.core.serializers.json import DjangoJSONEncoder
 
+def manager_check(user):
+    return user.groups.filter(name='managers')
 
 def employee_check(user):
     return user.groups.filter(name='managers') or user.groups.filter(name='employees')
 
 @user_passes_test(employee_check, login_url='homepage')
 def schedule(request):
-    return render(request, 'schedule/schedule.html')
+    if(manager_check(request.user)):
+        return render(request, 'schedule/schedule.html')
+    else:
+        return render(request, 'schedule/employeeschedule.html')
 
 def eventsFeed(request):
     managers = Group.objects.get(name='managers').user_set.all()
     employees = Group.objects.get(name='employees').user_set.all()
-
+    
     current_employee = Employee.objects.get(user=request.user)
     schedules = current_employee.schedule_set.all()
     if request.user in employees:
         tasks = current_employee.assignee.all()
+        time_offs = current_employee.timeoffrequest_set.all()
     else:
         tasks = Task.objects.all()
+        time_offs = TimeOffRequest.objects.all()
     json_list = []
 
     for schedule in schedules:
         title = schedule.title
         start = schedule.schedule_date.strftime("%Y-%m-%d") + 'T' + str(schedule.time_start)
-        end = str(schedule.time_end)
+        end = schedule.schedule_date.strftime("%Y-%m-%d") + 'T' + str(schedule.time_end)
         json_entry = {'title': title,'start': start, 'end': end}
         json_list.append(json_entry) 
+        
+    for time_off in time_offs:
+        title = str(time_off.employee) + ': ' + time_off.title
+        start = time_off.start_date.strftime("%Y-%m-%d")
+        end = time_off.end_date.strftime("%Y-%m-%d")
+        if(time_off.is_approved):
+            color = 'green'
+        else:
+            color = 'red'
+        json_entry = {'title': title,'start': start, 'end': end, 'color': color}
+        json_list.append(json_entry)
         
     for task in tasks:
         title = task.title

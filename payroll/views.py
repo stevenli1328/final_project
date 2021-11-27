@@ -8,39 +8,38 @@ from userprofile.models import Employee
 from .models import Payroll
 from .forms import PayrollForm, PayrollViewForm
 
+def manager_check(user):
+    return user.groups.filter(name='managers')
+
 def payroll(request):    
-    managers = Group.objects.get(name='managers').user_set.all()
-    employees = Group.objects.get(name='employees').user_set.all()
 
     if request.method=='POST':
-        if request.user in employees:
+        if (not manager_check(request.user)):
             form = PayrollViewForm(request.POST or None)
             employee = Employee.objects.get(user=request.user)
             error = 'You have no payroll data for those dates.'
         else:
             form = PayrollForm(request.POST or None)
-            employee_name = form.data['employee']
-            try:
-                user = User.objects.get(username=employee_name)
-            except User.DoesNotExist:
-                return render(request, 'payroll/payroll.html', {'form': PayrollForm(), 'error': 'Please make a valid selection.'})
-            employee = Employee.objects.get(user=user)
+            employee = Employee.objects.get(id=form.data['employee'])
             error = 'That user has no payroll data.'
 
         pay_period_start_date = datetime.strptime(form.data['pay_period_start'], '%Y-%m-%d').date()
         pay_period_end_date = datetime.strptime(form.data['pay_period_end'], '%Y-%m-%d').date()
-
-        if employee.payroll_set.first() != None:
-            paystubs = employee.payroll_set.filter(pay_period_start__gte=pay_period_start_date,
+        if (pay_period_start_date >= pay_period_end_date):
+            error = 'Please select valid dates.'
+            return render(request, 'payroll/payroll.html', {'form': form, 'error': error})  
+        paystubs = employee.payroll_set.filter(pay_period_start__gte=pay_period_start_date,
             pay_period_end__lte=pay_period_end_date).order_by('-pay_period_end')
-        else:
-            return render(request, 'payroll/payroll.html', {'form': form, 'error': error})
-        return render(request, 'payroll/payrolldetail.html', {'paystubs': paystubs})
+        
+        if not paystubs:
+            error = "There doesn't seem to be payroll data for those dates."
+            return render(request, 'payroll/payroll.html', {'form': form, 'error': error})  
+        return render(request, 'payroll/payrolldetail.html', {'paystubs': paystubs, 'error': error})
 
     else:
-        if(request.user in employees):
+        if(not manager_check(request.user)):
             payroll_form = PayrollViewForm()
-        elif(request.user in managers):
+        elif(manager_check(request.user)):
             payroll_form = PayrollForm()
         return render(request, 'payroll/payroll.html', {'form': payroll_form})
 

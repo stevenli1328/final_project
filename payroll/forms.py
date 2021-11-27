@@ -4,17 +4,6 @@ from userprofile.models import Employee
 from django.forms import Select
 from .models import Payroll
 
-employee_list = []
-employees = Employee.objects.all()
-i = 1
-for employee in employees:
-    
-    entry = [employee, str(employee).capitalize()]
-    entry_tuple = tuple(entry)
-    employee_list.append(entry_tuple)
-    i = i+1
-choices = tuple(employee_list)
-
 class PayrollForm(ModelForm):
     class Meta:
         model = Payroll

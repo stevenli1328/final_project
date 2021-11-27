@@ -5,6 +5,7 @@
         <a class="btn btn-primary btn-sm" href="{% url 'schedule:newschedule' %}">Create New Schedule</a>
     </div>
     <table class="table table-sm" id="scheduleTable">
+        <thead class="table-dark">
         {% if schedules %}
         <tr>
             <th class="text-center" onclick="sortTable(0)">Employee</th>
@@ -13,8 +14,8 @@
             <th>Start Time</th>
             <th>End Time</th>
         </tr>
-        
-        
+    </thead>
+        <tbody>
         {% for schedule in schedules %}
             <tr>
                 <td><a class="text-reset text-decoration-none" href='{% url "schedule:editschedule" schedule.id%}'>{{ schedule.employee|capfirst }}</a></td>
@@ -27,7 +28,8 @@
             {% else %} 
                 <br><br>
                 <tr class="text-center"><h4>Looks like no one is scheduled today!</h4></tr>
-            {% endif %}                
+            {% endif %} 
+        </tbody>               
         </table>
     </div>
 </div>
