@@ -24,14 +24,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         },
-            headerToolbar: {
-                left: 'newScheduleButton viewTimeOffButton',
-                center: 'title',
-                right: 'dayGridMonth,timeGridWeek,timeGridDay prev,next today'
-            },
-            initialView: 'dayGridMonth',
-            height: "auto"
-        });
+        eventClick: function(info) {
+            info.jsEvent.preventDefault(); // don't let the browser navigate
+
+            if (info.event.url) {
+                window.location.href = info.event.url;
+            }
+        },
+        headerToolbar: {
+            left: 'newScheduleButton viewTimeOffButton',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay prev,next today'
+        },
+        initialView: 'dayGridMonth',
+        height: "auto"
+    });
 
         calendar.render();
     });
@@ -41,6 +48,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 {% endblock %}
 {% block content %}
-<div id='calendar'></div>
+<div class="container-fluid">
+    <div class="row px-2 mt-3">
+        <div class="col">
+            <div id='calendar'></div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 

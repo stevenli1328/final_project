@@ -3,19 +3,19 @@
 {% block content %}
 <div class="container">
     <div class="col py-2">
-        <div class="row align-items-start">
+        <div class="row justify-content-center">
             {% include 'website/taskspreview.html' %}
         </div>
 
-    <div class="row justify-content-evenly">
-        <div class="col-md-4">
-            {% include 'website/employeespreview.html' %}
-        </div>
-        <div class="col-md-6">
-            {% include 'website/schedulepreview.html' %}
+        <div class="row justify-content-evenly">
+            <div class="col">
+                {% include 'website/employeespreview.html' %}
+            </div>
+            <div class="col">
+                {% include 'website/schedulepreview.html' %}
+            </div>
         </div>
     </div>
-</div>
 </div>
 
 

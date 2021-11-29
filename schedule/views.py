@@ -39,13 +39,15 @@ def eventsFeed(request):
     json_list = []
 
     for schedule in schedules:
+        url = './' + str(schedule.id) + '/'
         title = schedule.title
         start = schedule.schedule_date.strftime("%Y-%m-%d") + 'T' + str(schedule.time_start)
         end = schedule.schedule_date.strftime("%Y-%m-%d") + 'T' + str(schedule.time_end)
-        json_entry = {'title': title,'start': start, 'end': end}
+        json_entry = {'url': url, 'title': title,'start': start, 'end': end}
         json_list.append(json_entry) 
         
     for time_off in time_offs:
+        url = './timeoff/' + str(time_off.id) + '/'
         title = str(time_off.employee) + ': ' + time_off.title
         start = time_off.start_date.strftime("%Y-%m-%d")
         end = time_off.end_date.strftime("%Y-%m-%d")
@@ -53,11 +55,12 @@ def eventsFeed(request):
             color = 'green'
         else:
             color = 'red'
-        json_entry = {'title': title,'start': start, 'end': end, 'color': color}
+        json_entry = {'title': title, 'url': url, 'start': start, 'end': end, 'color': color}
         json_list.append(json_entry)
         
     for task in tasks:
         title = task.title
+        url = '/tasks/' + str(task.id) + '/'
         start = task.date_due.strftime("%Y-%m-%d")
         textColor = None
         color = None
@@ -72,7 +75,7 @@ def eventsFeed(request):
             color = 'yellow'
             textColor= 'black'
         
-        json_entry = {'title': title, 'start': start, 'color': color, 'textColor': textColor, 'allDay': True}
+        json_entry = {'title': title, 'url': url, 'start': start, 'color': color, 'textColor': textColor, 'allDay': True}
         json_list.append(json_entry)
         
     return HttpResponse(json.dumps(json_list), content_type='application/json')
