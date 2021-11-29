@@ -15,20 +15,21 @@ class EmployeeProfileForm(ModelForm):
     class Meta:
         model = Employee
         fields = ['first_name', 'last_name', 'date_of_birth', 'street','city', 'state', 'phone', 'profile_picture']
-    date_of_birth = forms.DateField(widget=SelectDateWidget(years=range(1930,2010), attrs={'class': 'form-control'}))
+    
+    date_of_birth = forms.DateField(required=False, widget=SelectDateWidget(years=range(1930,2010), attrs={'class': 'form-control'}))
 
     first_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control',
     'placeholder': 'First Name...'}))
     last_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control',
     'placeholder': 'Last Name...'}))
 
-    street = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    street = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
 
-    city = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    city = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
 
-    state = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    state = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
 
-    phone = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    phone = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
 
     profile_picture = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control'}))
 

@@ -1,7 +1,7 @@
 {% extends "website/main.html" %}
 
 {% block content %}
-<div class="col-md-10 mt-4">
+<div class="table-responsive">
     <div class="card card-body "><h2 class="text-center"><a class="text-reset text-decoration-none" href='{% url "tasks:tasks"%}'>Company Tasks</a></h2>
         {%if user.is_staff %}
         <a class="btn btn-primary btn-lg btn-block" href="{% url 'tasks:newtask' %}" role="button">Assign a New Task</a>

@@ -26,7 +26,6 @@ def schedule(request):
         return render(request, 'schedule/employeeschedule.html')
 
 def eventsFeed(request):
-    managers = Group.objects.get(name='managers').user_set.all()
     employees = Group.objects.get(name='employees').user_set.all()
     
     current_employee = Employee.objects.get(user=request.user)
