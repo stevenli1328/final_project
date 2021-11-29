@@ -1,10 +1,50 @@
-{%  extends 'website/main.html' %}
+{% extends "website/main.html" %}
 
 {% block content %}
+<div class="table-responsive">
+    <div class="card card-body "><h2 class="text-center"><a class="text-reset text-decoration-none" href='{% url "tasks:tasks"%}'>Employee Database</a></h2>
+        {%if user.is_staff %}
+        <a class="btn btn-primary btn-lg btn-block" href="" role="button">Add a New Employee</a>
+        {% endif %}
+        <table class="table table-sm table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Last Name</th>
+                    <th>First Name</th>
+                    <th>Username</th>
+                    <th>Team</th>
+                    <th>Hire Date</th>
+                    <th>Date of Birth</th>
+                    <th>Active</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for employee in employees %}
+                {% if employee.is_active %}<tr class="table-success">
+                {% else %} <tr>
+                {% endif %}
+                    <td><a class="text-reset text-decoration-none" href=''>{{ employee.last_name }}</a></td>
+                    <td>{{ employee.first_name|capfirst }}</td>
+                    <td>{{ employee }}
 
-{%for employee in employees%}
-{{employee}}
-{{employee.is_active}}
-<br>
-{%endfor%}
-    {% endblock %}
+                    {% if employee in managers %}
+                    <td>Manger</td>
+                    {% else %}
+                    <td>Employee</td>
+                    {% endif %}     
+                            
+                    <td>Oct. 1, 2021</td>
+                    <td>{{ employee.date_of_birth }}</td>
+                    {% if employee.is_active %}
+                    <td>Active</td>
+                    {% else %}
+                    <td>Inactive</td>
+                    {% endif %}
+
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

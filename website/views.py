@@ -34,5 +34,7 @@ def homepage(request):
 
 
 def employeeview(request):
+    managers = Group.objects.get(name='managers').user_set.all()
     employees = Employee.objects.all()
-    return render(request, 'website/employeeview.html',{'employees': employees})
+
+    return render(request, 'website/employeeview.html', {'employees': employees, 'managers': managers})
