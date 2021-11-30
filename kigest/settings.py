@@ -65,7 +65,8 @@ TEMPLATES = [
                  '/home/cabox/workspace/EMS/kigest/tasks/templates',
                  '/home/cabox/workspace/EMS/kigest/userprofile/templates',
                  '/home/cabox/workspace/EMS/kigest/schedule/templates',
-                 '/home/cabox/workspace/EMS/kigest/payroll/templates'],
+                 '/home/cabox/workspace/EMS/kigest/payroll/templates',
+                 os.path.join(BASE_DIR, 'website/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
