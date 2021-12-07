@@ -10,6 +10,7 @@ urlpatterns = [
     path('newtimeoff/', views.timeoffrequest, name='newtimeoff'),
     path('timeoff/', views.timeoff, name='timeoff'),
     path('timeoff/<int:timeoff_pk>/', views.approvetimeoff, name='approvetimeoff'),
+    path('deletetimeoff/<int:timeoff_pk>/', views.deletetimeoff, name='deletetimeoff'),
     path('<int:schedule_pk>/', views.editschedule, name='editschedule'),
     path('createschedule/', views.createschedule, name='newschedule'),
     re_path(r'.*', views.bad, name = 'bad link'),

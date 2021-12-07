@@ -37,8 +37,8 @@ def createtask(request):
             form = TaskForm(request.POST)
             newtask = form.save(commit=False)
             newtask.assigner = Employee.objects.get(user=request.user)
+            newtask.save_m2m()
             newtask.save()
-            form.save_m2m()
             return redirect('tasks:tasks')
         except ValueError:
             return render(request, 'tasks/newtask.html', {'form': form,'error': 'Please assign task to at least one person'})

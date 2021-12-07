@@ -133,10 +133,10 @@ def timeoff(request):
 
 def approvetimeoff(request, timeoff_pk):
     timeoffrequest = get_object_or_404(TimeOffRequest, pk=timeoff_pk)
-    
+
     if request.method == 'GET':
         form = form = TimeOffApproveForm(instance=timeoffrequest)
-        return render(request, 'schedule/approvetimeoff.html', {'form': form})
+        return render(request, 'schedule/approvetimeoff.html', {'form': form, 'timeoff': timeoffrequest})
     else:
         try:
             form = TimeOffApproveForm(request.POST, instance=timeoffrequest)
@@ -146,6 +146,13 @@ def approvetimeoff(request, timeoff_pk):
         except ValueError:
             return render(request, 'schedule/approvetimeoff.html', {'form': form, 'error': 'Bad information.'})
 
+def deletetimeoff(request, timeoff_pk):
+    timeoff = get_object_or_404(TimeOffRequest, pk=timeoff_pk)
+    if request.method=='POST':
+        timeoff.delete()
+        return redirect('schedule:schedule')
+    else:
+        return render(request, 'schedule/deletetimeoff.html', {'timeoff': timeoff})
 
 
 def bad(request):

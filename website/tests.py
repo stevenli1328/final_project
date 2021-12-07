@@ -12,11 +12,13 @@ class HomepageViewTest(TestCase):
 
 class SigninTest(TestCase):
     def setUp(self):
-        self.user = User.objects.create(username='test', password='12test12', email='test@example.com')
+        self.user = User.objects.create(username='test', email='test@example.com')
+        self.user.set_password('12test12')
+        self.user.save()
 
     def test_correct(self):
         user = authenticate(username='test', password='12test12')
-        self.assertTrue((user is not None) and user.is_authenticated)
+        self.assertTrue(user is not None and user.is_authenticated)
 
     def test_wrong_username(self):
         user = authenticate(username='wrong', password='12test12')

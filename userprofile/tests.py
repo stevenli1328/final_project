@@ -28,3 +28,4 @@ class EmployeeModelTest(TestCase):
             employee = Employee.objects.get(id=i+1)
             dob = datetime.date(1990 + i, 2 + i, 3 + i)
             self.assertEqual(employee.date_of_birth, dob)
+
