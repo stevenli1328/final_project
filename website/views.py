@@ -24,11 +24,11 @@ def homepage(request):
     if request.user in managers or request.user.is_superuser:
         tasks = Task.objects.order_by('-date_created')[:10]
         schedules = Schedule.objects.filter(schedule_date=datetime.date.today())
-        return render(request, 'website/managerdashboard.html', {'tasks': tasks, 'schedules': schedules, 'managers': managers, 'employees': employees})
+        return render(request, 'website/managerdashboard.html', {'tasks': tasks, 'is_manager': True, 'schedules': schedules, 'managers': managers, 'employees': employees})
     elif request.user in employees:
         current_employee = Employee.objects.get(user=request.user)
         tasks = current_employee.assignee.all().order_by('-date_due')
-        return render(request, 'website/employeedashboard.html', {'tasks': tasks})
+        return render(request, 'website/employeedashboard.html', {'tasks': tasks, 'is_manager': False})
     else:
         return HttpResponse("Sorry, you aren't properly authenticated!")
 

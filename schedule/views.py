@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User, Group
 
-from .forms import ScheduleForm, ScheduleEditForm, TimeOffRequestForm, TimeOffApproveForm
+from .forms import ScheduleForm, ScheduleEditForm, TimeOffRequestForm, TimeOffApproveForm, ScheduleViewForm
 from .models import Schedule, TimeOffRequest
 from userprofile.models import Employee
 from tasks.models import Task
@@ -36,11 +36,12 @@ def eventsFeed(request):
     else:
         tasks = Task.objects.all()
         time_offs = TimeOffRequest.objects.all()
+        schedules = Schedule.objects.all()
     json_list = []
 
     for schedule in schedules:
         url = './' + str(schedule.id) + '/'
-        title = schedule.title
+        title = str(schedule.employee)
         start = schedule.schedule_date.strftime("%Y-%m-%d") + 'T' + str(schedule.time_start)
         end = schedule.schedule_date.strftime("%Y-%m-%d") + 'T' + str(schedule.time_end)
         json_entry = {'url': url, 'title': title,'start': start, 'end': end}
@@ -80,6 +81,7 @@ def eventsFeed(request):
         
     return HttpResponse(json.dumps(json_list), content_type='application/json')
 
+@user_passes_test(manager_check, login_url='homepage')
 def createschedule(request):
     if request.method == 'GET':
         form = ScheduleForm(initial={'schedule_date': datetime.date.today()})
@@ -96,8 +98,12 @@ def createschedule(request):
 def editschedule(request, schedule_pk):
     schedule =  get_object_or_404(Schedule, pk=schedule_pk)
     if request.method == 'GET':
-        form = ScheduleEditForm(initial={'schedule_date': schedule.schedule_date.isoformat()}, instance=schedule)
-        return render(request, 'schedule/editschedule.html', {'schedule':schedule, 'form': form})
+        if(manager_check(request.user)):
+            form = ScheduleEditForm(initial={'schedule_date': schedule.schedule_date.isoformat()}, instance=schedule)
+            return render(request, 'schedule/editschedule.html', {'schedule':schedule, 'form': form, 'is_manager': True})
+        else:
+            form = ScheduleViewForm(initial={'schedule_date': schedule.schedule_date.isoformat()}, instance=schedule)
+            return render(request, 'schedule/editschedule.html', {'schedule':schedule, 'form': form, 'is_manager': False})
     else:
         try:
             form = ScheduleEditForm(request.POST, instance=schedule)
@@ -107,6 +113,7 @@ def editschedule(request, schedule_pk):
         except ValueError:
             return render(request, 'schedule/editschedule.html', {'schedule':schedule, 'form': form, 'error': 'Bad information.'})
 
+@user_passes_test(manager_check, login_url='homepage')
 def deleteschedule(request, schedule_pk):
     schedule =  get_object_or_404(Schedule, pk=schedule_pk)
     if request.method=='POST':
@@ -128,15 +135,26 @@ def timeoffrequest(request):
             return render(request, 'schedule/newtimeoff.html', {'form': form, 'error': 'Input Error'})
 
 def timeoff(request):
-    timeoffrequests = TimeOffRequest.objects.order_by('-start_date')
-    return render(request, 'schedule/viewtimeoff.html', {'timeoffrequests': timeoffrequests})
+    if(manager_check(request.user)):
+        timeoffrequests = TimeOffRequest.objects.order_by('-start_date')
+        return render(request, 'schedule/viewtimeoff.html', {'timeoffrequests': timeoffrequests})
+    else:
+        current_employee = Employee.objects.get(user=request.user)
+        timeoffrequests = current_employee.timeoffrequest_set.order_by('-start_date')
+        return render(request, 'schedule/viewtimeoff.html', {'timeoffrequests': timeoffrequests})
+
 
 def approvetimeoff(request, timeoff_pk):
     timeoffrequest = get_object_or_404(TimeOffRequest, pk=timeoff_pk)
 
     if request.method == 'GET':
-        form = form = TimeOffApproveForm(instance=timeoffrequest)
-        return render(request, 'schedule/approvetimeoff.html', {'form': form, 'timeoff': timeoffrequest})
+        if(manager_check(request.user)):
+            form = TimeOffApproveForm(instance=timeoffrequest)
+            return render(request, 'schedule/approvetimeoff.html', {'form': form, 'timeoff': timeoffrequest})
+        else:
+            form = TimeOffRequestForm(instance=timeoffrequest)
+            return render(request, 'schedule/approvetimeoff.html', {'form': form, 'timeoff': timeoffrequest})
+
     else:
         try:
             form = TimeOffApproveForm(request.POST, instance=timeoffrequest)

@@ -162,3 +162,45 @@ class ScheduleEditForm(ModelForm):
             'type': 'time'}
         )
     )
+
+class ScheduleViewForm(ModelForm):
+    class Meta:
+        model = Schedule
+        fields = ['employee', 'title', 'schedule_date', 'time_start', 'time_end']
+    
+    title = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'form-control',
+        'placeholder': 'Optional schedule title'}))
+
+    schedule_date = forms.DateField(
+        label = 'Schedule date:',
+        disabled = True,
+        widget=NumberInput(
+            attrs={'class': 'form-control',
+            'type': 'date'}
+        )
+    )
+
+    employee = forms.CharField(
+        disabled=True,
+        widget=forms.Select(
+            attrs={'class': 'form-control'}
+        )
+    )
+
+    time_start = forms.TimeField(
+        label = 'Start time:',
+        disabled = True,
+        widget=NumberInput(
+            attrs={'class': 'form-control',
+            'type': 'time'}
+        )
+    )
+
+    time_end = forms.TimeField(
+        label = 'End time:',
+        disabled = True,
+        widget=NumberInput(
+            attrs={'class': 'form-control',
+            'type': 'time'}
+        )
+    )
