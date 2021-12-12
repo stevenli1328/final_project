@@ -1,8 +1,8 @@
 # final_project
-My CS 195 final project, an employee management system. 
+Our CS 195 final project, an employee management system. 
 
 Employee Management System Software Requirements Specification
-By Kirk Spaseff
+By Kirk Spaseff and Steven Li
 Introduction
 Overview and Goals
 
